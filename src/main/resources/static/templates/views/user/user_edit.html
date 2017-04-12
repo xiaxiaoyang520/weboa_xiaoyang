@@ -1,0 +1,101 @@
+<div>
+	<!-- BEGIN PAGE HEADER-->
+	<h3 class="page-title" data-ng-bind="$state.current.data.pageTitle"></h3>
+	 <div data-ncy-breadcrumb></div>
+</div>
+	<div class="row">
+		<div class="col-md-12">
+			<div class="portlet light bordered">
+				<div class="portlet-title">
+					<div class="caption font-green-sharp">
+						<i class="icon-equalizer font-green-sharp"></i> <span
+							class="caption-subject bold uppercase">编辑用户信息</span>
+					</div>
+				</div>
+				<div class="portlet-body form">
+					<form name="addForm" class="form-horizontal"
+						novalidate="novalidate">
+					<div class="form-body">
+						<div class="form-group">
+							<label class="col-md-2 control-label">编号：<span class="required">*</span></label>
+							<div class="col-md-6">
+								<span class="form-control-static"  ng-bind="vo.userId"></span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-md-2 control-label">姓名：<span class="required">*</span></label>
+							<div class="col-md-6">
+								<span class="form-control-static"  ng-bind="vo.userName"></span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-md-2 control-label">性别：<span class="required">*</span></label>
+							<div class="col-md-6">
+								<span class="form-control-static"  ng-show="vo.userSex == 1">帅哥</span>
+								<span class="form-control-static"  ng-show="vo.userSex == 2">美女</span>
+							</div>
+						</div>
+						
+						<div class="form-group">
+							<label class="col-md-2 control-label">年龄：<span class="required">*</span></label>
+							<div class="col-md-4">
+								<span class="form-control-static"  ng-bind="vo.userAge"></span>
+							</div>
+						</div>
+						
+						<div class="form-group">
+							<label class="col-md-2 control-label">职位：<span class="required">*</span></label>
+							<div class="col-md-4">
+										<select class="form-control" data-ng-model="vo.postId"
+											data-ng-options="item.postId as item.postName for item in userPostList">
+											<option value="">请选择</option>
+										</select>
+									</div>
+						</div>
+						<div class="form-group">
+						<label class="col-md-2 control-label">电话：<span class="required">*</span></label>
+						<div class="col-md-4">
+								<input type="text" required name="userTel"
+									class="form-control data-ng-pristine data-ng-untouched data-ng-valid"
+									 data-ng-model="vo.userTel">
+							</div>
+							
+						</div>
+						
+						<div class="form-group">
+						<label class="col-md-2 control-label">住址：<span class="required">*</span></label>
+							<div class="col-md-4">
+								<textarea class="form-control" cols="20" rows="15"
+												maxlength="500" ng-model="vo.userAddr"></textarea>
+							</div>
+						</div>
+						
+					<div class="form-actions">
+							<div class="row">
+								<div class="col-md-offset-2 col-md-4">
+									<button class="btn blue" data-ng-click="userSubmit()"
+										data-ejp-no-more-submit data-ng-disabled="addForm.$invalid">
+										<i class="fa fa fa-check"></i> 保存
+									</button>
+									<a href="#/user_list.html" class="btn default"><i class="fa fa-chevron-circle-left"></i> 返回</a>
+								</div>
+							</div>
+						</div>
+					</form>
+					<!-- END FORM-->
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- END PAGE CONTENT-->
+<script>
+$("#beginDate").datetimepicker({
+	language:'cn',
+	rtl:Metronic.isRTL(),
+    format: "yyyy-mm-dd hh:ii",
+    autoclose: true,
+    todayBtn: true,
+    minuteStep:5,
+    pickerPosition: "bottom-left"
+});
+</script>

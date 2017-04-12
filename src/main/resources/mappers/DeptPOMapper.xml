@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hbpu.weboa.service.dao.DeptPOMapper" >
+  <resultMap id="BaseResultMap" type="com.hbpu.weboa.service.domain.Dept" >
+    <id column="DeptId" property="deptId" jdbcType="INTEGER" />
+    <result column="DeptName" property="deptName" jdbcType="VARCHAR" />
+    <result column="DeptRemark" property="deptRemark" jdbcType="VARCHAR"/>
+    <result column="DeptHeader" property="deptHeader" jdbcType="INTEGER"/>
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    DeptId, DeptName, DeptRemark, DeptHeader
+  </sql>
+
+  <!-- 获取部门信息列表 -->
+  <select id="findDeptList" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select 
+        <include refid="Base_Column_List" />
+    from  depts
+    <where>
+	    <if test="deptId != null"> and DeptId = #{deptId,jdbcType=INTEGER} </if>
+    	<if test="deptName != null and deptName != ''"><![CDATA[ and DeptName like concat('%', #{deptName,jdbcType=VARCHAR}, '%')]]></if> 
+	    <if test="deptHeader != null">and DeptHeader = #{deptHeader,jdbcType=INTEGER} </if>
+	</where>
+	  order by DeptId desc 
+  </select>
+  
+  <select id="queryDeptById" resultType="com.hbpu.weboa.service.domain.Dept" parameterType="java.lang.Integer" >
+    select 
+        <include refid="Base_Column_List" />
+    from  depts
+    <where>
+	    DeptId = #{deptId,jdbcType=INTEGER}
+	</where>
+  </select>
+  
+ <!-- 插入部门信息 -->
+  <insert id="addDept" parameterType="com.hbpu.weboa.service.domain.Dept" useGeneratedKeys="true" keyProperty="deptId">
+    insert into depts
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="deptId != null" > DeptId,</if>
+      <if test="deptName != null" >DeptName,</if>
+      <if test="deptRemark != null" > DeptRemark,</if>
+      <if test="deptHeader != null">DeptHeader,</if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="deptId != null" >#{deptId,jdbcType=INTEGER},</if>
+      <if test="deptName != null" > #{deptName,jdbcType=VARCHAR},</if>
+      <if test="deptRemark != null">#{deptRemark,jdbcType=VARCHAR},</if>
+      <if test="deptHeader != null">#{deptHeader,jdbcType=INTEGER},</if>
+    </trim>
+  </insert>
+  
+  <!-- 修改部门信息 -->
+ <update id="updateDept" parameterType="com.hbpu.weboa.service.domain.Dept" >
+    update depts
+    <set >
+      <if test="deptName != null" >DeptName = #{deptName,jdbcType=VARCHAR},</if>
+      <if test="deptRemark != null">DeptRemark = #{deptRemark,jdbcType=VARCHAR},</if>
+      <if test="deptHeader != null">DeptHeader = #{deptHeader,jdbcType=INTEGER},</if>
+    </set>
+    where DeptId = #{deptId,jdbcType=INTEGER}
+  </update>
+  
+</mapper>

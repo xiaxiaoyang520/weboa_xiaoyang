@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hbpu.weboa.service.dao.CommentPOMapper" >
+  <resultMap id="BaseResultMap" type="com.hbpu.weboa.service.domain.Comment" >
+    <id column="CommentId" property="commentId" jdbcType="INTEGER" />
+    <result column="Context" property="context" jdbcType="VARCHAR" />
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP"/>
+    <result column="UserId" property="userId" jdbcType="INTEGER"/>
+    <result column="SpeechId" property="speechId" jdbcType="INTEGER"/>
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    CommentId, Context, CreateTime, UserId, SpeechId
+  </sql>
+
+  <!-- 通过 言论id查看其评论列表-->
+  <select id="findCommentList" resultMap="BaseResultMap" >
+    select 
+        <include refid="Base_Column_List" />
+    from  comments
+    <where>
+	    <if test="speechId != null"> and SpeechId = #{speechId,jdbcType=INTEGER} </if>
+	</where>
+	  order by CreateTime desc
+  </select>
+  
+  <insert id="addComment" parameterType="com.hbpu.weboa.service.domain.Comment" useGeneratedKeys="true" keyProperty="commentId">
+    insert into comments
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="commentId != null" > CommentId,</if>
+      <if test="context != null" >Context,</if>
+      <if test="createTime != null" > CreateTime,</if>
+      <if test="userId != null">UserId,</if>
+      <if test="speechId != null">SpeechId, </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="commentId != null" >#{commentId,jdbcType=INTEGER},</if>
+      <if test="context != null" > #{context,jdbcType=VARCHAR},</if>
+      <if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+      <if test="userId != null">#{userId,jdbcType=INTEGER},</if>
+      <if test="speechId != null">#{speechId,jdbcType=INTEGER},</if>
+    </trim>
+  </insert>
+</mapper>

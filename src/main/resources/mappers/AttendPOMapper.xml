@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hbpu.weboa.service.dao.AttendPOMapper" >
+  <resultMap id="BaseResultMap" type="com.hbpu.weboa.service.domain.Attend" >
+    <id column="AttendId" property="attendId" jdbcType="INTEGER" />
+    <result column="AttendUser" property="attendUser" jdbcType="INTEGER" />
+    <result column="StartTime" property="startTime" jdbcType="TIMESTAMP"/>
+    <result column="EndTime" property="endTime" jdbcType="TIMESTAMP"/>
+    <result column="AttendRemark" property="attendRemark" jdbcType="VARCHAR"/>
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    AttendId, AttendUser, StartTime, EndTime,AttendRemark
+  </sql>
+
+  <!-- 获取考勤信息列表 -->
+  <select id="findAttendList" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select 
+        <include refid="Base_Column_List" />
+    from  attends
+    <where>
+	    <if test="attendUser != null"> and AttendUser = #{attendUser,jdbcType=INTEGER} </if>
+	    <if test="startTime != null">and StartTime<![CDATA[ >=]]> #{startTime,jdbcType=TIMESTAMP} </if>
+	    <if test="endTime != null">and EndTime<![CDATA[ <=]]> #{endTime,jdbcType=TIMESTAMP} </if>
+	</where>
+	  order by StartTime desc
+  	<if test="offset != null and limitnum!=null">
+		limit
+		#{offset,jdbcType=INTEGER},#{limitnum,jdbcType=INTEGER}
+	</if>
+  </select>
+  
+  <!-- 获取考勤信息列表 数量-->
+  <select id="getAttendListNum" resultType="java.lang.Integer" parameterType="java.util.Map" >
+    select 
+        count(AttendId)
+    from  attends
+     <where>
+	    <if test="attendUser != null"> and AttendUser = #{attendUser,jdbcType=INTEGER} </if>
+	    <if test="startTime != null">and StartTime<![CDATA[ >=]]> #{startTime,jdbcType=TIMESTAMP} </if>
+	    <if test="endTime != null">and EndTime<![CDATA[ <=]]> #{endTime,jdbcType=TIMESTAMP} </if>
+	</where>
+  </select>
+  
+  
+ <!-- 插入考勤信息 -->
+  <insert id="addAttend" parameterType="com.hbpu.weboa.service.domain.Attend" useGeneratedKeys="true" keyProperty="attendId">
+    insert into attends
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="attendId != null" > AttendId,</if>
+      <if test="attendUser != null" >AttendUser,</if>
+      <if test="startTime != null">StartTime,</if>
+      <if test="endTime != null">EndTime, </if>
+      <if test="attendRemark != null" >AttendRemark,</if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="attendId != null" >#{attendId,jdbcType=INTEGER},</if>
+      <if test="attendUser != null" > #{attendUser,jdbcType=INTEGER},</if>
+      <if test="startTime != null">#{startTime,jdbcType=TIMESTAMP},</if>
+      <if test="endTime != null">#{endTime,jdbcType=TIMESTAMP},</if>
+      <if test="attendRemark != null">#{attendRemark,jdbcType=VARCHAR},</if>
+    </trim>
+  </insert>
+  
+  <!--  给考勤信息添加备注信息 -->
+ <update id="addRemark" parameterType="java.util.Map" >
+    update attends
+    <set >
+      <if test="attendRemark != null" >AttendRemark = #{attendRemark,jdbcType=VARCHAR},</if>
+    </set>
+   <where>
+	    <if test="attendUser != null"> and AttendUser = #{attendUser,jdbcType=INTEGER} </if>
+	    <if test="startTime != null">and StartTime<![CDATA[ >=]]> #{startTime,jdbcType=TIMESTAMP} </if>
+	    <if test="endTime != null">and EndTime<![CDATA[ <=]]> #{endTime,jdbcType=TIMESTAMP} </if>
+	</where>
+  </update>
+  
+</mapper>

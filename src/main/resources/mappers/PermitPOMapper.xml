@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hbpu.weboa.service.dao.PermitPOMapper" >
+  <resultMap id="BaseResultMap" type="com.hbpu.weboa.service.domain.Permit" >
+    <id column="PermitId" property="permitId" jdbcType="INTEGER" />
+    <result column="PermitTitle" property="permitTitle" jdbcType="VARCHAR" />
+    <result column="PermitContext" property="permitContext" jdbcType="VARCHAR" />
+    <result column="SubmitUser" property="submitUser" jdbcType="INTEGER"/>
+    <result column="SubmitTime" property="submitTime" jdbcType="TIMESTAMP"/>
+    <result column="PermitState" property="permitState" jdbcType="INTEGER"/>
+    <result column="HandleUser" property="handleUser" jdbcType="INTEGER"/>
+    <result column="HandleTime" property="handleTime" jdbcType="TIMESTAMP"/>
+    <result column="HandleRemark" property="handleRemark" jdbcType="VARCHAR"/>
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    PermitId, PermitTitle, PermitContext, SubmitUser, SubmitTime,PermitState,HandleUser,HandleTime,HandleRemark
+  </sql>
+
+  <!-- 获取审核信息列表 -->
+  <select id="findPermitList" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select 
+        <include refid="Base_Column_List" />
+    from  permits
+    <where>
+    	<if test="permitTitle != null and permitTitle != ''"><![CDATA[ and PermitTitle like concat('%', #{permitTitle,jdbcType=VARCHAR}, '%')]]></if> 
+	    <if test="submitUser != null"> and SubmitUser = #{submitUser,jdbcType=INTEGER} </if>
+	    <if test="permitState != null">and PermitState = #{permitState,jdbcType=INTEGER} </if>
+		<if test="handleUser != null">and HandleUser = #{handleUser,jdbcType=INTEGER}</if>
+	</where>
+	  order by SubmitTime desc
+  </select>
+  
+  <select id="getPermitListNum" resultType="java.lang.Integer" parameterType="java.util.Map" >
+    select 
+        count(PermitId)
+    from  permits
+     <where>
+    	<if test="permitTitle != null and permitTitle != ''"><![CDATA[ and PermitTitle like concat('%', #{permitTitle,jdbcType=VARCHAR}, '%')]]></if> 
+	    <if test="submitUser != null"> and SubmitUser = #{submitUser,jdbcType=INTEGER} </if>
+	    <if test="permitState != null">and PermitState = #{permitState,jdbcType=INTEGER} </if>
+		<if test="handleUser != null">and HandleUser = #{handleUser,jdbcType=INTEGER}</if>
+	</where>
+  </select>
+  
+ <!-- 插入审核信息 -->
+  <insert id="addPermit" parameterType="com.hbpu.weboa.service.domain.Permit" useGeneratedKeys="true" keyProperty="permitId">
+    insert into permits
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="permitId != null" > PermitId,</if>
+      <if test="permitTitle != null" >PermitTitle,</if>
+      <if test="permitContext != null" > PermitContext,</if>
+      <if test="submitUser != null">SubmitUser,</if>
+      <if test="submitTime != null">SubmitTime, </if>
+      <if test="permitState != null" >PermitState,</if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="permitId != null" >#{permitId,jdbcType=INTEGER},</if>
+      <if test="permitTitle != null" > #{permitTitle,jdbcType=VARCHAR},</if>
+      <if test="permitContext != null">#{permitContext,jdbcType=VARCHAR},</if>
+      <if test="submitUser != null">#{submitUser,jdbcType=INTEGER},</if>
+      <if test="submitTime != null">#{submitTime,jdbcType=TIMESTAMP},</if>
+      <if test="permitState != null">#{permitState,jdbcType=INTEGER},</if>
+    </trim>
+  </insert>
+  
+  <!-- 修改审核信息 -->
+ <update id="updatePermit" parameterType="com.hbpu.weboa.service.domain.Permit" >
+    update permits
+    <set >
+      <if test="permitState != null" >PermitState = #{permitState,jdbcType=INTEGER},</if>
+      <if test="handleUser != null">HandleUser = #{handleUser,jdbcType=INTEGER},</if>
+      <if test="handleTime != null">HandleTime = #{handleTime,jdbcType=TIMESTAMP},</if>
+      <if test="handleRemark != null">HandleRemark = #{handleRemark,jdbcType=VARCHAR},</if>
+    </set>
+    where PermitId = #{permitId,jdbcType=INTEGER}
+  </update>
+  
+</mapper>
