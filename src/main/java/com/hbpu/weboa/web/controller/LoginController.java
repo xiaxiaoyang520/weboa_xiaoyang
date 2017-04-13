@@ -3,7 +3,9 @@
  */
 package com.hbpu.weboa.web.controller;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,10 +36,13 @@ public class LoginController {
 	
 	@RequestMapping(value="/templates/userLogin",method=RequestMethod.POST)
 	public ModelAndView userLogin(@RequestParam(value = "userTel") String userTel,
-            @RequestParam(value = "userPassword") String userPassword,HttpServletResponse response) throws Exception{
+            @RequestParam(value = "userPassword") String userPassword,HttpServletResponse response,
+            HttpServletRequest request) throws Exception{
 		
 		try {
 			User user = userService.userLogin(userTel, userPassword);
+			HttpSession session = request.getSession();
+			session.setAttribute("user", user);
 			// 登陆操作
 	      if (user!= null) {
 	      	return new ModelAndView(new RedirectView("index.html#/user_list.html"));

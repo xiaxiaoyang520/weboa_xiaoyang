@@ -5,6 +5,8 @@ package com.hbpu.weboa.web.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,6 +20,7 @@ import com.hbpu.weboa.service.service.PostService;
 import com.hbpu.weboa.service.service.UserService;
 import com.hbpu.weboa.web.pagemodel.BaseResult;
 import com.hbpu.weboa.web.pagemodel.ListResult;
+import com.hbpu.weboa.web.pagemodel.ROResult;
 
 /**  
  * 公共请求控制器
@@ -54,5 +57,10 @@ public class CommonController {
 	public BaseResult findAllUserList(){
 		List<User>  users = userService.findAllUserList();
 		return new ListResult<User>(users);
+	}
+	@RequestMapping(value="/templates/common/queryUserInfo",method=RequestMethod.POST)
+	public BaseResult queryUserInfo(HttpServletRequest request){
+		User user = userService.queryUserInfo(request);
+		return new ROResult<User>(user);
 	}
 }

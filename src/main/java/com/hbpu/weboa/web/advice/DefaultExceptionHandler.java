@@ -63,7 +63,7 @@ public class DefaultExceptionHandler {
 		pw.write("<HTML>\n");
 		pw.write("<head>\n");
 		pw.write("<meta charset=\"UTF-8\">\n");
-		pw.write("<title>运营管理平台 | 错误页面</title>\n");
+		pw.write("<title>错误页面</title>\n");
 		pw.write(
 				"<link href=\"../assets/global/plugins/bootstrap/css/bootstrap.min.css\" rel=\"stylesheet\" type=\"text/css\"/>\n");
 		pw.write("<link href=\"../assets/pages/css/error.css\" rel=\"stylesheet\" type=\"text/css\"/>\n");

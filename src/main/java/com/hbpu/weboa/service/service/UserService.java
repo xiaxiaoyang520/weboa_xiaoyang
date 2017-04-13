@@ -2,6 +2,9 @@ package com.hbpu.weboa.service.service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -57,6 +60,16 @@ public class UserService{
 
 	public boolean checkUserTel(String userTel) {
 		return userBL.checkUserTel(userTel);
+	}
+	
+	public User queryUserInfo(HttpServletRequest request){
+		HttpSession session = request.getSession();
+		User user = (User)session.getAttribute("user");
+		if (user != null) {
+			return user;
+		}else {
+			return null;
+		}
 	}
 
 }
