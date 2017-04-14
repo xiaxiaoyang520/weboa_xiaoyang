@@ -103,10 +103,40 @@ MetronicApp.config([ '$httpProvider', function($httpProvider) {
 				delete resp.data.detailMessage;
 			}else if('failure'===resp.data.result){
 				toastr.error(resp.data.message, 'Error');
-				$location.path('/user_list.html');
+				$location.path('/dashboard.html');
 			}
 			return resp;
-		}
+		},
+        responseError: function (rejection) {
+        	// 取消正在加载
+            Metronic.unblockUI();
+            if (rejection.status === 403) {
+                $log.error("访问被拒绝：" + rejection.config.url);
+                toastr.warning(rejection.data.message, "警告", {
+                    timeOut: 10000,
+                    preventOpenDuplicates: true,
+                    onHidden: function () {
+                        var redirectURI = rejection.headers("redirectURI");
+                        if (redirectURI) {
+                            if (rejection.data.message.indexOf("登录后访问") > 0) {
+                                window.location = redirectURI;
+                            }
+                        }
+                    }
+                });
+                return rejection;
+            }
+            if (rejection) {
+                if (rejection.status === 404) {
+                    $rootScope.msg = "请求资源不存在：" + rejection.config.url;
+                    $location.path('/error.html');
+                }
+            } else {
+                $rootScope.msg = "未知问题，请联系运维人员！";
+                $location.path('/error.html');
+            }
+            return rejection;
+        }
 		};
 	}]);
 } ]);
@@ -134,9 +164,12 @@ MetronicApp.controller('HeaderController', [ '$scope', '$http', '$log','$locatio
 		'modalService','$modal','getUserInfo', function($scope, $http, $log,$location, modalService,$modal,getUserInfo) {
 			$scope.$on('$includeContentLoaded', function() {
 				Layout.initHeader(); // init header
-//				var userInfo = $scope.userInfo = getUserInfo.userInfo();
-//				var userInfo = $scope.userInfo ='xiay';
-				$scope.userInfo={trueName:'夏阳'}
+				$scope.logout=function(){
+					window.location = "login.html";
+				};
+				var userInfo = $scope.userInfo = getUserInfo.userInfo();
+				if(userInfo){
+				$scope.userInfo={trueName:userInfo.userName}
 				$scope.open = function() {
 					modalService.openModal({
 						'url' : 'views/modals/common/swapRoleModal.html',
@@ -152,10 +185,9 @@ MetronicApp.controller('HeaderController', [ '$scope', '$http', '$log','$locatio
 						}
 					});
 				};
-				
-				$scope.logout=function(){
-					window.location = "login.html";
-				};
+				}else {
+					$scope.logout();
+				}
 				
 				$scope.upDatePassword = function() {
 			        //创建修改密码弹框
@@ -283,6 +315,84 @@ function ModalSwapRoleCtrl($scope, $http, $modalInstance) {
 	};
 }
 
+MetronicApp.run(["$rootScope", "settings", "$state",
+                 function ($rootScope, settings, $state) {
+                     $rootScope.$state = $state; // state to be accessed from view
+                 }]);
+
+             /* Setup Rounting For All Pages */
+             MetronicApp
+                 .config([
+                     '$stateProvider',
+                     '$urlRouterProvider',
+                     function ($stateProvider, $urlRouterProvider) {
+                         // Redirect any unmatched url
+                         $urlRouterProvider.otherwise("/dashboard.html");
+
+                         $stateProvider
+                             .state(
+                                 'dashboard',
+                                 {
+                                     url: "/dashboard.html",
+                                     templateUrl: "views/dashboard.html",
+                                     data: {
+                                         pageTitle: '首页'
+                                     },
+                                     ncyBreadcrumb: {
+                                         label: '<i class="fa fa-home"></i>首页',
+                                     },
+                                     controller: "DashboardController",
+                                     resolve: {
+                                         deps: [
+                                             '$ocLazyLoad',
+                                             function ($ocLazyLoad) {
+                                                 return $ocLazyLoad
+                                                     .load({
+                                                         name: 'MetronicApp',
+                                                         insertBefore: '#ng_load_plugins_before', // load
+                                                         files: [
+                                                             '../assets/global/plugins/bootstrap-daterangepicker/daterangepicker-bs3.css',
+                                                             '../assets/amcharts/angular-chart.css',
+                                                             '../assets/pages/scripts/index.js',
+                                                             '../assets/amcharts/angular-chart.js',
+                                                             'js/controllers/DashboardController.js'
+
+                                                         ]
+                                                     });
+                                             }]
+                                     }
+                                 })
+
+                             // 错误页
+                             .state(
+                                 'error',
+                                 {
+                                     url: "/error.html",
+                                     templateUrl: "shared/error.html",
+                                     data: {
+                                         pageTitle: '出错了'
+                                     },
+                                     ncyBreadcrumb: {
+                                         // label : '<i class="fa
+                                         // fa-home"></i>首页',
+                                     },
+                                     controller: "ErrorController",
+                                     resolve: {
+                                         deps: [
+                                             '$ocLazyLoad',
+                                             function ($ocLazyLoad) {
+                                                 return $ocLazyLoad
+                                                     .load({
+                                                         name: 'MetronicApp',
+                                                         insertBefore: '#ng_load_plugins_before', // load
+                                                         files: ['js/controllers/ErrorController.js']
+                                                     });
+                                             }]
+                                     }
+                                 })
+
+                     }]);
+
 /* Setup Layout Part - Sidebar */
 MetronicApp.controller('SidebarController', [
 		'$scope',
@@ -337,76 +447,3 @@ MetronicApp.run([ "$rootScope", "settings", "$state",
 			$rootScope.$state = $state; // state to be accessed from view
 		} ]);
 
-/* Setup Rounting For All Pages */
-MetronicApp
-		.config([
-				'$stateProvider',
-				'$urlRouterProvider',
-				function($stateProvider, $urlRouterProvider) {
-					// Redirect any unmatched url
-					$urlRouterProvider.otherwise("/dashboard.html");
-
-					$stateProvider
-							// Dashboard
-							.state(
-									'dashboard',
-									{
-										url : "/dashboard.html",
-										templateUrl : "views/dashboard.html",
-										data : {
-											pageTitle : '首页'
-										},
-										ncyBreadcrumb : {
-											label : '<i class="fa fa-home"></i>首页',
-										},
-										controller : "DashboardController",
-										resolve : {
-											deps : [
-													'$ocLazyLoad',
-													function($ocLazyLoad) {
-														return $ocLazyLoad
-																.load({
-																	name : 'MetronicApp',
-																	insertBefore : '#ng_load_plugins_before', // load
-																	files : [
-																			'../assets/global/plugins/bootstrap-daterangepicker/daterangepicker-bs3.css',
-
-																			'../assets/pages/scripts/index.js',
-
-																			'js/controllers/DashboardController.js'
-
-																	]
-																});
-													} ]
-										}
-									})
-
-							// 错误页
-							.state(
-									'error',
-									{
-										url : "/error.html",
-										templateUrl : "shared/error.html",
-										data : {
-											pageTitle : '出错了'
-										},
-										ncyBreadcrumb : {
-										// label : '<i class="fa
-										// fa-home"></i>首页',
-										},
-										controller : "ErrorController",
-										resolve : {
-											deps : [
-													'$ocLazyLoad',
-													function($ocLazyLoad) {
-														return $ocLazyLoad
-																.load({
-																	name : 'MetronicApp',
-																	insertBefore : '#ng_load_plugins_before', // load
-																	files : [ 'js/controllers/ErrorController.js' ]
-																});
-													} ]
-										}
-									})
-
-				} ]);

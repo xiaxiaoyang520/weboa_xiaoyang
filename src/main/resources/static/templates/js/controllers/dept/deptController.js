@@ -55,7 +55,11 @@ MetronicApp.controller("addDeptController",
 	                $rootScope.settings.layout.pageSidebarClosed = false;
 	                
 	                $scope.vo = {};
-	                
+	                $http.post("common/findAllUserList").success(function (data) {
+                        if (data.result === "success") {
+                            $scope.userList = data.list;
+                        }
+	                });
 	                //保存
 	                $scope.deptSubmit = function () {
 	                    $http.post("dept/addDept", $scope.vo).success(function (data) {

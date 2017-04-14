@@ -45,7 +45,7 @@ public class LoginController {
 			session.setAttribute("user", user);
 			// 登陆操作
 	      if (user!= null) {
-	      	return new ModelAndView(new RedirectView("index.html#/user_list.html"));
+	      	return new ModelAndView(new RedirectView("index.html#/dashboard.html"));
 	      }
 	      else{
 	    	  throw new Exception("登陆异常");

@@ -38,7 +38,7 @@ public class PrivilegeController {
         indexVO.setSequence(null);
         indexVO.setSonIndex(null);
         indexVO.setTitle("首页");
-        indexVO.setUrl("#/user_list.html");
+        indexVO.setUrl("#/dashboard.html");
         
         PrivilegeIndexVO userVO = new PrivilegeIndexVO();
         userVO.setIcon("icon-user");
@@ -109,7 +109,6 @@ public class PrivilegeController {
         dataList.add(permitVO);
         dataList.add(speechVO);
         poList.setDataList(dataList);
-
 
         return new PagesResult<PrivilegeIndexVO>(poList);
     }

@@ -1660,32 +1660,22 @@ MetronicApp.service('utilService', ['$http', function($http) {
 
 //获取用户Cookie信息
 MetronicApp.service('getUserInfo',function(){
-	var getUserInfo=function getCookieVal(cookieName) {
-        var search = cookieName+"=";
-        var returnvalue = "";
-        if (document.cookie.length > 0) {
-            offset = document.cookie.indexOf(search);
-            if (offset != -1) {
-                offset += search.length
-                end = document.cookie.indexOf(";",
-                    offset);
-                if (end == -1)
-                    end = document.cookie.length;
-                returnvalue = decodeURIComponent(document.cookie
-                    .substring(offset, end));
-                // unescape(document.cookie.substring(offset,
-                // end))
-            }
-        }
-        return returnvalue;
+	var getUserInfo=function getLoginUserInfo() {
+        var userInfo = null;
+        var responseText = $.ajax({
+			  url: "common/queryLoginUserInfo",
+			  async: false
+		}).responseText;
+		userInfo = angular.fromJson(responseText).data;	    		
+        return userInfo;
     };
     return {
     	userInfo:function(){
-    		user=getUserInfo('YJP_PARTNER_UserInfo');
+    		user=getUserInfo();
     		if(user==undefined||user==''){
     			return null;
     		}
-    		return JSON.parse(user);
+    		return user;
     	}
     }
 });

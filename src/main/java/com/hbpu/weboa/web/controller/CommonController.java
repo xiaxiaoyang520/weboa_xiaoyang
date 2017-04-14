@@ -58,9 +58,9 @@ public class CommonController {
 		List<User>  users = userService.findAllUserList();
 		return new ListResult<User>(users);
 	}
-	@RequestMapping(value="/templates/common/queryUserInfo",method=RequestMethod.POST)
-	public BaseResult queryUserInfo(HttpServletRequest request){
-		User user = userService.queryUserInfo(request);
+	@RequestMapping(value="/templates/common/queryLoginUserInfo",method=RequestMethod.GET)
+	public BaseResult queryLoginUserInfo(HttpServletRequest request){
+		User user = userService.queryLoginUserInfo(request);
 		return new ROResult<User>(user);
 	}
 }

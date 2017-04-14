@@ -62,7 +62,7 @@ public class UserService{
 		return userBL.checkUserTel(userTel);
 	}
 	
-	public User queryUserInfo(HttpServletRequest request){
+	public User queryLoginUserInfo(HttpServletRequest request){
 		HttpSession session = request.getSession();
 		User user = (User)session.getAttribute("user");
 		if (user != null) {
