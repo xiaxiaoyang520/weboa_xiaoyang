@@ -36,6 +36,11 @@ public class Comment implements Serializable{
 	private Integer userId;
 	
 	/**
+	 * 评论人名称
+	 */
+	private String userName;
+	
+	/**
 	 * 评论言论id
 	 */
 	private Integer speechId;
@@ -78,6 +83,14 @@ public class Comment implements Serializable{
 
 	public void setSpeechId(Integer speechId) {
 		this.speechId = speechId;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 	

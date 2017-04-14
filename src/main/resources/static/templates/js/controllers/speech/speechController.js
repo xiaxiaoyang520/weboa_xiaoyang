@@ -2,8 +2,8 @@
  * 言论列表
  */
 MetronicApp.controller("speechController",
-	['$rootScope','$scope','$http','$location','$modal','pagedataLoading','ejpAlert',
-	function($rootScope, $scope, $http, $location, $modal, pagedataLoading,ejpAlert) {
+	['$rootScope','$scope','$http','$location','$modal','pagedataLoading','ejpAlert','getUserInfo',
+	function($rootScope, $scope, $http, $location, $modal, pagedataLoading,ejpAlert,getUserInfo) {
 		$scope.$on('$viewContentLoaded', function() {
 			Metronic.initAjax();
 
@@ -25,7 +25,8 @@ MetronicApp.controller("speechController",
 				pagedataLoading.loading();
 				$http.post("speech/findSpeechList/"+$scope.vm.pages.index).success(function(data){
 					if(data.result==="success"){
-						$scope.vm.items = data.datas.dataList ;
+						$scope.vm.items = data.datas.dataList;
+//						$socope.vm.commentList = data.datas.dataList.comments
 						$scope.vm.pages.totalResult = data.datas.pager.recordCount;
 						$scope.vm.pages.totalPage = data.datas.pager.totalPage;
 					}
@@ -51,7 +52,17 @@ MetronicApp.controller("speechController",
 			$scope.resetClick = function() {
 				$scope.vo = {};
 			};
-
+			
+			//点赞方法
+			var userInfo = $scope.userInfo = getUserInfo.userInfo();
+			$scope.addPraiseNum = function(speechId){
+					$http.post("speech/addPraiseNum/"+speechId+"/"+userInfo.userId).success(function(data){
+						if(data.result==="success"){
+							$scope.getSpeechList();
+						}
+					})
+			
+		};
 		});
 }]);
 

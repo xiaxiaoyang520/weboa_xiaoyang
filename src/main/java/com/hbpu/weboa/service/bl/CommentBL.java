@@ -12,7 +12,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.hbpu.weboa.service.dao.CommentPOMapper;
+import com.hbpu.weboa.service.dao.UserPOMapper;
 import com.hbpu.weboa.service.domain.Comment;
+import com.hbpu.weboa.service.domain.User;
 
 /**  
  * 评论BL
@@ -27,8 +29,18 @@ public class CommentBL {
 	@Autowired
 	private CommentPOMapper commentPOMapper;
 	
+	@Autowired
+	private UserPOMapper userPOMapper;
+	
 	public List<Comment> findCommentList(Integer speechId){
-		return commentPOMapper.findCommentList(speechId);
+		List<Comment> comments = commentPOMapper.findCommentList(speechId);
+		for (Comment comment : comments) {
+			User user = userPOMapper.selectByKey(comment.getUserId());
+			if (user != null) {
+				comment.setUserName(user.getUserName());
+			}
+		}
+		return comments;
 	}
 
 	public Integer addComment(Comment comment) {

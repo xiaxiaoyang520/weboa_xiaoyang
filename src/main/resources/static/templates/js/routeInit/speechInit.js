@@ -5,12 +5,6 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider',
         $urlRouterProvider.otherwise("/speech_list.html");
 
         $stateProvider
-        //言论管理
-            .state('speech_manage', {
-                ncyBreadcrumb: {
-                    label: '言论管理'
-                }
-            })
             //言论信息列表
             .state(
                 'speech_list',
@@ -18,11 +12,10 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider',
                     url: "/speech_list.html",
                     templateUrl: "views/speech/speech_list.html",
                     data: {
-                        pageTitle: '言论信息管理'
+                        pageTitle: '言论列表'
                     },
                     ncyBreadcrumb: {
-                        label: '言论信息管理',
-                        parent: 'speech_manage'
+                        label: '言论列表',
                     },
                     controller: "speechController",
                     resolve: {
@@ -53,11 +46,11 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider',
                     url: "/speech_add.html",
                     templateUrl: "views/speech/speech_add.html",
                     data: {
-                        pageTitle: '新增言论'
+                        pageTitle: '言论新增'
                     },
                     ncyBreadcrumb: {
-                        label: '新增言论',
-                        parent: 'speech_manage'
+                        label: '言论新增',
+                        parent: 'speech_list'
                     },
                     controller: "addSpeechController",
                     resolve: {

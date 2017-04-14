@@ -21,39 +21,44 @@ import com.alibaba.dubbo.common.URL;
 import com.hbpu.weboa.service.domain.User;
 import com.hbpu.weboa.service.service.UserService;
 
-/**  
+/**
  * 登陆控制器
+ * 
  * @author xiayang
- * @date 2017年3月18日 下午3:19:18  
+ * @date 2017年3月18日 下午3:19:18
  */
 @RestController
 public class LoginController {
-	
+
 	@Autowired
 	private UserService userService;
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(LoginController.class);
-	
-	@RequestMapping(value="/templates/userLogin",method=RequestMethod.POST)
+
+	@RequestMapping("/")
+	public ModelAndView toLogin() {
+		return new ModelAndView(new RedirectView("templates/login.html"));
+	}
+
+	@RequestMapping(value = "/templates/userLogin", method = RequestMethod.POST)
 	public ModelAndView userLogin(@RequestParam(value = "userTel") String userTel,
-            @RequestParam(value = "userPassword") String userPassword,HttpServletResponse response,
-            HttpServletRequest request) throws Exception{
-		
+			@RequestParam(value = "userPassword") String userPassword, HttpServletResponse response,
+			HttpServletRequest request) throws Exception {
+
 		try {
 			User user = userService.userLogin(userTel, userPassword);
 			HttpSession session = request.getSession();
 			session.setAttribute("user", user);
 			// 登陆操作
-	      if (user!= null) {
-	      	return new ModelAndView(new RedirectView("index.html#/dashboard.html"));
-	      }
-	      else{
-	    	  throw new Exception("登陆异常");
-	      }
+			if (user != null) {
+				return new ModelAndView(new RedirectView("index.html#/dashboard.html"));
+			} else {
+				throw new Exception("登陆异常");
+			}
 		} catch (Exception e) {
 			LOG.warn("登录异常", e);
 		}
-		return new ModelAndView(new RedirectView("login.html?error="+ URL.encode("登陆异常"), true));
+		return new ModelAndView(new RedirectView("login.html?error=" + URL.encode("登陆异常"), true));
 		// 登陆操作
 	}
 }

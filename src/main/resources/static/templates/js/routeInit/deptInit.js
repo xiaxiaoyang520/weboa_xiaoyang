@@ -5,24 +5,17 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider',
         $urlRouterProvider.otherwise("/dept_list.html");
 
         $stateProvider
-        //言论管理
-            .state('dept_manage', {
-                ncyBreadcrumb: {
-                    label: '言论管理'
-                }
-            })
-            //言论信息列表
+            //部门管理
             .state(
                 'dept_list',
                 {
                     url: "/dept_list.html",
                     templateUrl: "views/dept/dept_list.html",
                     data: {
-                        pageTitle: '言论信息管理'
+                        pageTitle: '部门管理'
                     },
                     ncyBreadcrumb: {
-                        label: '言论信息管理',
-                        parent: 'dept_manage'
+                        label: '部门管理',
                     },
                     controller: "deptController",
                     resolve: {
@@ -46,18 +39,18 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider',
                             }]
                     }
                 })
-            //新增言论
+            //新增部门
             .state(
                 'dept_add',
                 {
                     url: "/dept_add.html",
                     templateUrl: "views/dept/dept_add.html",
                     data: {
-                        pageTitle: '新增言论'
+                        pageTitle: '部门新增'
                     },
                     ncyBreadcrumb: {
-                        label: '新增言论',
-                        parent: 'dept_manage'
+                        label: '部门新增',
+                        parent: 'dept_list'
                     },
                     controller: "addDeptController",
                     resolve: {
@@ -81,18 +74,18 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider',
                             }]
                     }
                 })
-            //言论信息编辑
+            //部门编辑
             .state(
                 'dept_edit',
                 {
                     url: "/dept_edit/:id",
                     templateUrl: "views/dept/dept_edit.html",
                     data: {
-                        pageTitle: '编辑言论信息'
+                        pageTitle: '部门编辑'
                     },
                     ncyBreadcrumb: {
-                        label: '编辑言论信息',
-                        parent: 'dept_manage'
+                        label: '部门编辑',
+                        parent: 'dept_list'
                     },
                     controller: "editDeptController",
                     resolve: {
@@ -123,11 +116,11 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider',
                     url: "/dept_detail/:id",
                     templateUrl: "views/dept/dept_detail.html",
                     data: {
-                        pageTitle: '言论详细信息'
+                        pageTitle: '部门详情'
                     },
                     ncyBreadcrumb: {
-                        label: '言论详细信息',
-                        parent: 'dept_manage'
+                        label: '部门详情',
+                        parent: 'dept_list'
                     },
                     controller: "detailDeptController",
                     resolve: {

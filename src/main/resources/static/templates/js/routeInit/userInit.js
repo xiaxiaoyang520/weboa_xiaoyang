@@ -5,12 +5,6 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider',
         $urlRouterProvider.otherwise("/user_list.html");
 
         $stateProvider
-        //用户管理
-            .state('user_manage', {
-                ncyBreadcrumb: {
-                    label: '用户管理'
-                }
-            })
             //用户信息列表
             .state(
                 'user_list',
@@ -18,11 +12,10 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider',
                     url: "/user_list.html",
                     templateUrl: "views/user/user_list.html",
                     data: {
-                        pageTitle: '用户信息管理'
+                        pageTitle: '用户信息列表'
                     },
                     ncyBreadcrumb: {
-                        label: '用户信息管理',
-                        parent: 'user_manage'
+                        label: '用户管理',
                     },
                     controller: "userController",
                     resolve: {
@@ -53,11 +46,11 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider',
                     url: "/user_add.html",
                     templateUrl: "views/user/user_add.html",
                     data: {
-                        pageTitle: '新增用户'
+                        pageTitle: '用户新增'
                     },
                     ncyBreadcrumb: {
-                        label: '新增用户',
-                        parent: 'user_manage'
+                        label: '用户新增',
+                        parent: 'user_list'
                     },
                     controller: "addUserController",
                     resolve: {
@@ -88,11 +81,11 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider',
                     url: "/user_edit/:id",
                     templateUrl: "views/user/user_edit.html",
                     data: {
-                        pageTitle: '编辑用户信息'
+                        pageTitle: '用户编辑'
                     },
                     ncyBreadcrumb: {
-                        label: '编辑用户信息',
-                        parent: 'user_manage'
+                        label: '用户编辑',
+                        parent: 'user_list'
                     },
                     controller: "editUserController",
                     resolve: {
@@ -123,11 +116,11 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider',
                     url: "/user_detail/:id",
                     templateUrl: "views/user/user_detail.html",
                     data: {
-                        pageTitle: '用户详细信息'
+                        pageTitle: '用户详情'
                     },
                     ncyBreadcrumb: {
-                        label: '用户详细信息',
-                        parent: 'user_manage'
+                        label: '用户详情',
+                        parent: 'user_list'
                     },
                     controller: "detailUserController",
                     resolve: {

@@ -55,6 +55,11 @@ public class Speech implements Serializable{
 	 * 评论列表
 	 */
 	private List<Comment> comments;
+	
+	/**
+	 * 点赞记录列表
+	 */
+	private List<PraiseRecord> praiseRecords;
 
 	public Integer getSpeechId() {
 		return speechId;
@@ -119,5 +124,15 @@ public class Speech implements Serializable{
 	public void setComments(List<Comment> comments) {
 		this.comments = comments;
 	}
+
+	public List<PraiseRecord> getPraiseRecords() {
+		return praiseRecords;
+	}
+
+	public void setPraiseRecords(List<PraiseRecord> praiseRecords) {
+		this.praiseRecords = praiseRecords;
+	}
+	
+	
 
 }

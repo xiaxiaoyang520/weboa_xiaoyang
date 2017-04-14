@@ -5,12 +5,6 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider',
         $urlRouterProvider.otherwise("/post_list.html");
 
         $stateProvider
-        //用户管理
-            .state('post_manage', {
-                ncyBreadcrumb: {
-                    label: '职位管理'
-                }
-            })
             //用户信息列表
             .state(
                 'post_list',
@@ -18,11 +12,10 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider',
                     url: "/post_list.html",
                     templateUrl: "views/post/post_list.html",
                     data: {
-                        pageTitle: '职位信息管理'
+                        pageTitle: '职位管理'
                     },
                     ncyBreadcrumb: {
-                        label: '职位信息管理',
-                        parent: 'post_manage'
+                        label: '职位管理',
                     },
                     controller: "postController",
                     resolve: {
@@ -53,11 +46,11 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider',
                     url: "/post_add.html",
                     templateUrl: "views/post/post_add.html",
                     data: {
-                        pageTitle: '新增职位'
+                        pageTitle: '职位新增'
                     },
                     ncyBreadcrumb: {
-                        label: '新增职位',
-                        parent: 'post_manage'
+                        label: '职位新增',
+                        parent: 'post_list'
                     },
                     controller: "addPostController",
                     resolve: {
@@ -88,11 +81,11 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider',
                     url: "/post_edit/:id",
                     templateUrl: "views/post/post_edit.html",
                     data: {
-                        pageTitle: '编辑职位信息'
+                        pageTitle: '职位编辑'
                     },
                     ncyBreadcrumb: {
-                        label: '编辑职位信息',
-                        parent: 'post_manage'
+                        label: '职位编辑',
+                        parent: 'post_list'
                     },
                     controller: "editPostController",
                     resolve: {
@@ -123,11 +116,11 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider',
                     url: "/post_detail/:id",
                     templateUrl: "views/post/post_detail.html",
                     data: {
-                        pageTitle: '职位详细信息'
+                        pageTitle: '职位详细'
                     },
                     ncyBreadcrumb: {
-                        label: '职位详细信息',
-                        parent: 'post_manage'
+                        label: '职位详细',
+                        parent: 'post_list'
                     },
                     controller: "detailPostController",
                     resolve: {

@@ -3,7 +3,7 @@
 	<!-- 名字没什么卵用 -->
 	<contextName>logback</contextName>
 	<!-- 日志文件保存的位置 -->
-	<property name="log.path" value="G:\\logback.log" />
+	<property name="log.path" value="E:\\logback.log" />
 	<!-- 这里是打印到控制台的设置,打印到控制台的样式 -->
 	<appender name="console" class="ch.qos.logback.core.ConsoleAppender">
 		<encoder>

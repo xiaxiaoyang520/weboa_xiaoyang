@@ -3,10 +3,13 @@
  */
 package com.hbpu.weboa.service.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.hbpu.weboa.service.bl.SpeechBL;
+import com.hbpu.weboa.service.domain.PraiseRecord;
 import com.hbpu.weboa.service.domain.Speech;
 import com.hbpu.weboa.service.utils.AssertUtils;
 import com.hbpu.weboa.service.utils.PageList;
@@ -42,5 +45,22 @@ public class SpeechService{
 	public void addPraiseNum(Integer speechId) {
 		AssertUtils.notNull(speechId, "点赞信息id为空");
 		speechBL.addPraiseNum(speechId);
+	}
+	
+	public void addPraiseRecord(Integer speechId,Integer userId){
+		AssertUtils.notNull(speechId, "言论id为空");
+		AssertUtils.notNull(userId, "用户id为空");
+		speechBL.addPraiseRecord(speechId, userId);
+	}
+	
+	public boolean queryPraiseRecord(Integer speechId,Integer userId){
+		AssertUtils.notNull(speechId, "言论id为空");
+		AssertUtils.notNull(userId, "用户id为空");
+		return speechBL.queryPraiseRecord(speechId, userId);
+	}
+	
+	public List<PraiseRecord> findPraiseRecordList(Integer speechId){
+		AssertUtils.notNull(speechId, "言论id为空");
+		return speechBL.findPraiseRecordList(speechId);
 	}
 }

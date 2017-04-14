@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hbpu.weboa.service.domain.Comment;
+import com.hbpu.weboa.service.domain.PraiseRecord;
 import com.hbpu.weboa.service.domain.Speech;
 import com.hbpu.weboa.service.domain.User;
 import com.hbpu.weboa.service.service.CommentService;
@@ -46,8 +47,11 @@ public class SpeechController {
 		PageList<Speech> speechPage = speechService.findSpeechList(pagerCondition);
 		List<Speech> speechList = speechPage.getDataList();
 		for (Speech speech : speechList) {
-			List<Comment> commentList = commentService.findCommentList(speech.getSpeechId());
+			Integer speechId = speech.getSpeechId();
+			List<Comment> commentList = commentService.findCommentList(speechId);
 			speech.setComments(commentList);
+			List<PraiseRecord> praiseRecordList = speechService.findPraiseRecordList(speechId);
+			speech.setPraiseRecords(praiseRecordList);
 			User user = userService.getUserById(speech.getCreateUser());
 			speech.setCreateUserName(user.getUserName());
 		}
@@ -57,6 +61,16 @@ public class SpeechController {
 	@RequestMapping(value="/templates/speech/addSpeech",method=RequestMethod.POST)
 	public BaseResult addSpeech(@RequestBody Speech speech){
 		speechService.addSpeech(speech);
+		return BaseResult.getSuccessResult();
+	}
+	
+	@RequestMapping(value="/templates/speech/addPraiseNum/{speechId}/{userId}",method=RequestMethod.POST)
+	public BaseResult addPraiseNum(@PathVariable Integer speechId,@PathVariable Integer userId){
+		boolean result = speechService.queryPraiseRecord(speechId, userId);
+		if (result) {
+			speechService.addPraiseRecord(speechId,userId);
+			speechService.addPraiseNum(speechId);
+		}
 		return BaseResult.getSuccessResult();
 	}
 	
