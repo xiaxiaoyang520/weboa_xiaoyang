@@ -9,7 +9,7 @@
 				<div class="portlet-title">
 					<div class="caption font-green-sharp">
 						<i class="icon-equalizer font-green-sharp"></i> <span
-							class="caption-subject bold uppercase">添加用户</span>
+							class="caption-subject bold uppercase">用户新增</span>
 					</div>
 				</div>
 				<div class="portlet-body form">
@@ -65,11 +65,26 @@
 									placeholder="请输入电话" data-ng-model="user.userTel">
 							</div>
 						</div>
-						
+						<div class="form-group">
+							<label class="col-md-2 control-label">身份证号：</label>
+							<div class="col-md-4">
+								<input type="text" required name="idCardNO"
+									class="form-control data-ng-pristine data-ng-untouched data-ng-valid"
+									placeholder="请输入18位身份证号" data-ng-model="user.idCardNO">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-md-2 control-label">邮箱：</label>
+							<div class="col-md-4">
+								<input type="text" required name="userEmail"
+									class="form-control data-ng-pristine data-ng-untouched data-ng-valid"
+									placeholder="请输入邮箱" data-ng-model="user.userEmail">
+							</div>
+						</div>
 						<div class="form-group">
 							<label class="col-md-2 control-label">住址：<span class="required">*</span></label>
 							<div class="col-md-4">
-								<textarea class="form-control" cols="20" rows="15" placeholder="请输入详细地址" required="required"
+								<textarea class="form-control" cols="20" rows="3" placeholder="请输入详细地址" required="required"
 												maxlength="500" ng-model="user.userAddr"></textarea>
 							</div>
 						</div>

@@ -41,8 +41,11 @@ public class SpeechBL {
 	@Autowired
 	private UserPOMapper userPOMapper;
 
-	public PageList<Speech> findSpeechList(PagerCondition pagerCondition) {
+	public PageList<Speech> findSpeechList(PagerCondition pagerCondition,Integer createUser) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
+		if (!createUser.equals(0)) {
+			paramMap.put("createUser", createUser);
+		}
 		paramMap.put("offset", pagerCondition.startRow());
 		paramMap.put("limitnum", pagerCondition.getPageSize());
 		List<Speech> speechs = speechPOMapper.findSpeechList(paramMap);

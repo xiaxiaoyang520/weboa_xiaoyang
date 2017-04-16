@@ -30,7 +30,7 @@
     <where>
 	    <if test="speechId != null"> and SpeechId = #{speechId,jdbcType=INTEGER} </if>
 	</where>
-	  order by CreateTime desc
+	  order by CreateTime asc
   </select>
   
   <insert id="addPraiseRecord" parameterType="com.hbpu.weboa.service.domain.PraiseRecord" useGeneratedKeys="true" keyProperty="praiseRecordId">

@@ -51,6 +51,11 @@ public class UserVO implements Serializable{
 	 * 职位id
 	 */
 	private Integer postId;
+	
+	/**
+	 * 用户状态
+	 */
+	private Integer state;
 
 	public String getUserName() {
 		return userName;
@@ -107,8 +112,14 @@ public class UserVO implements Serializable{
 	public void setUserAge(Integer userAge) {
 		this.userAge = userAge;
 	}
-	
-	
+
+	public Integer getState() {
+		return state;
+	}
+
+	public void setState(Integer state) {
+		this.state = state;
+	}
 	
 }
 

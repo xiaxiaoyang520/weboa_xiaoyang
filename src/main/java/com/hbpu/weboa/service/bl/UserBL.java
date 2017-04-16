@@ -11,9 +11,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.hbpu.weboa.service.dao.UserPOMapper;
 import com.hbpu.weboa.service.domain.User;
+import com.hbpu.weboa.service.utils.AssertUtils;
 import com.hbpu.weboa.service.utils.PageList;
 import com.hbpu.weboa.service.utils.Pager;
 import com.hbpu.weboa.service.utils.PagerCondition;
+import com.hbpu.weboa.service.utils.ValidateHelp;
 
 /**
  * 用户 BL类
@@ -40,6 +42,8 @@ public class UserBL {
 		paramMap.put("postId", user.getPostId());
 		paramMap.put("userSex", user.getUserSex());
 		paramMap.put("userTel", user.getUserTel());
+		paramMap.put("state", user.getState());
+		paramMap.put("userPower", user.getUserPower());
 		paramMap.put("offset", pagerCondition.startRow());
 		paramMap.put("limitnum", pagerCondition.getPageSize());
 		List<User> users = userPOMapper.findUserList(paramMap);
@@ -89,6 +93,15 @@ public class UserBL {
 		String userPassword = userTel.substring(userTel.length()-6, userTel.length());
 		user.setUserPassword(userPassword);
 		user.setUserPower(1);
+		user.setState(1);
+		String idCardNO = user.getIdCardNO();
+		if (idCardNO != null) {
+			AssertUtils.isTrue(ValidateHelp.checkIDCard(idCardNO), "身份证号不合法");
+		}
+		String userEmail = user.getUserEmail();
+		if (userEmail != null) {
+			AssertUtils.isTrue(ValidateHelp.checkEmail(userEmail), "邮箱输入不合法");
+		}
 		userPOMapper.addUser(user);
 		return user.getUserId();
 	}
@@ -100,6 +113,14 @@ public class UserBL {
 	 * @return
 	 */
 	public void updateUser(User user) {
+		String idCardNO = user.getIdCardNO();
+		if (idCardNO != null) {
+			AssertUtils.isTrue(ValidateHelp.checkIDCard(idCardNO), "身份证号不合法");
+		}
+		String userEmail = user.getUserEmail();
+		if (userEmail != null) {
+			AssertUtils.isTrue(ValidateHelp.checkEmail(userEmail), "邮箱输入不合法");
+		}
 		userPOMapper.updateUser(user);
 	}
 

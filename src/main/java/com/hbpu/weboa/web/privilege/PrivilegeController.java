@@ -76,7 +76,7 @@ public class PrivilegeController {
         speechVO.setPrivilegeName("言论管理");
         speechVO.setPrivilegeType("Menu");
         speechVO.setSequence(null);
-        deptVO.setSonIndex(null);
+        speechVO.setSonIndex(null);
         speechVO.setTitle("言论管理");
         speechVO.setUrl("#/speech_list.html");
 
@@ -101,6 +101,26 @@ public class PrivilegeController {
         attendVO.setTitle("考勤管理");
         attendVO.setUrl("#/attend_list.html");
         
+        PrivilegeIndexVO privilegeVO = new PrivilegeIndexVO();
+        privilegeVO.setIcon("fa fa-ioxhost");
+        privilegeVO.setPrivilegeCode("privilege");
+        privilegeVO.setPrivilegeName("授权管理");
+        privilegeVO.setPrivilegeType("Menu");
+        privilegeVO.setSequence(null);
+        privilegeVO.setSonIndex(null);
+        privilegeVO.setTitle("授权管理");
+        privilegeVO.setUrl("#/attend_list.html");
+        
+        PrivilegeIndexVO noticeVO = new PrivilegeIndexVO();
+        noticeVO.setIcon("fa fa-bullhorn");
+        noticeVO.setPrivilegeCode("notice");
+        noticeVO.setPrivilegeName("通知和公告");
+        noticeVO.setPrivilegeType("Menu");
+        noticeVO.setSequence(null);
+        noticeVO.setSonIndex(null);
+        noticeVO.setTitle("通知和公告");
+        noticeVO.setUrl("#/notice_list.html");
+        
         dataList.add(indexVO);
         dataList.add(userVO);
         dataList.add(postVO);
@@ -108,6 +128,8 @@ public class PrivilegeController {
         dataList.add(attendVO);
         dataList.add(permitVO);
         dataList.add(speechVO);
+        dataList.add(privilegeVO);
+        dataList.add(noticeVO);
         poList.setDataList(dataList);
 
         return new PagesResult<PrivilegeIndexVO>(poList);

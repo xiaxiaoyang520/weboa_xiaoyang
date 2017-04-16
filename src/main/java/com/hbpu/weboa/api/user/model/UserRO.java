@@ -63,6 +63,21 @@ public class UserRO implements Serializable{
 	 */
 	private Integer postId;
 	
+	/**
+	 * 状态
+	 */
+	private Integer state;
+	
+	/**
+	 * 身份证号
+	 */
+	private String idCardNO;
+	
+	/**
+	 * 邮箱
+	 */
+	private String userEmail;
+	
 
 	public Integer getUserId() {
 		return userId;
@@ -134,6 +149,30 @@ public class UserRO implements Serializable{
 
 	public void setPostId(Integer postId) {
 		this.postId = postId;
+	}
+
+	public Integer getState() {
+		return state;
+	}
+
+	public void setState(Integer state) {
+		this.state = state;
+	}
+
+	public String getIdCardNO() {
+		return idCardNO;
+	}
+
+	public void setIdCardNO(String idCardNO) {
+		this.idCardNO = idCardNO;
+	}
+
+	public String getUserEmail() {
+		return userEmail;
+	}
+
+	public void setUserEmail(String userEmail) {
+		this.userEmail = userEmail;
 	}
 	
 	

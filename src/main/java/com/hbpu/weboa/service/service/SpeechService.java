@@ -8,7 +8,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.hbpu.weboa.service.bl.CommentBL;
 import com.hbpu.weboa.service.bl.SpeechBL;
+import com.hbpu.weboa.service.domain.Comment;
 import com.hbpu.weboa.service.domain.PraiseRecord;
 import com.hbpu.weboa.service.domain.Speech;
 import com.hbpu.weboa.service.utils.AssertUtils;
@@ -25,10 +27,13 @@ public class SpeechService{
 	
 	@Autowired
 	private SpeechBL speechBL;
+	
+	@Autowired
+	private CommentBL commentBL;
 
-	public PageList<Speech> findSpeechList(PagerCondition pagerCondition) {
+	public PageList<Speech> findSpeechList(PagerCondition pagerCondition,Integer createUser) {
 		AssertUtils.notNull(pagerCondition, "分页信息对象为空");
-		return speechBL.findSpeechList(pagerCondition);
+		return speechBL.findSpeechList(pagerCondition,createUser);
 	}
 
 	public Integer addSpeech(Speech speech) {
@@ -62,5 +67,13 @@ public class SpeechService{
 	public List<PraiseRecord> findPraiseRecordList(Integer speechId){
 		AssertUtils.notNull(speechId, "言论id为空");
 		return speechBL.findPraiseRecordList(speechId);
+	}
+	
+	public void addComment(Comment comment){
+		AssertUtils.notNull(comment, "评论模型为空");
+		AssertUtils.hasText(comment.getContext(), "评论内容为空");
+		AssertUtils.notNull(comment.getSpeechId(), "言论id为空");
+		AssertUtils.notNull(comment.getUserId(), "评论人id为空");
+		commentBL.addComment(comment);
 	}
 }

@@ -19,6 +19,9 @@
     select 
         <include refid="Base_Column_List" />
     from  speechs
+    <where>
+	    <if test="createUser != null"> and CreateUser = #{createUser,jdbcType=INTEGER} </if>
+	</where>
 	  order by CreateTime desc
   	<if test="offset != null and limitnum!=null">
 		limit
@@ -31,6 +34,9 @@
     select 
         count(speechId)
     from  speechs
+    <where>
+	    <if test="createUser != null"> and CreateUser = #{createUser,jdbcType=INTEGER} </if>
+	</where>
   </select>
   
  <!-- 添加言论信息 -->

@@ -48,7 +48,7 @@ public class User implements Serializable{
 	private String userPassword;
 	
 	/**
-	 * 用户权限1后台，2前台
+	 * 用户权限1管理员，2部门主管，3普通员工
 	 */
 	private Integer userPower;
 	
@@ -56,6 +56,21 @@ public class User implements Serializable{
 	 * 职位id
 	 */
 	private Integer postId;
+	
+	/**
+	 * 用户状态
+	 */
+	private Integer state;
+	
+	/**
+	 * 用户邮箱
+	 */
+	private String userEmail;
+	
+	/**
+	 * 身份证号
+	 */
+	private String idCardNO;
 
 	public Integer getUserId() {
 		return userId;
@@ -127,6 +142,30 @@ public class User implements Serializable{
 
 	public void setPostId(Integer postId) {
 		this.postId = postId;
+	}
+
+	public Integer getState() {
+		return state;
+	}
+
+	public void setState(Integer state) {
+		this.state = state;
+	}
+
+	public String getUserEmail() {
+		return userEmail;
+	}
+
+	public void setUserEmail(String userEmail) {
+		this.userEmail = userEmail;
+	}
+
+	public String getIdCardNO() {
+		return idCardNO;
+	}
+
+	public void setIdCardNO(String idCardNO) {
+		this.idCardNO = idCardNO;
 	}
 
 	

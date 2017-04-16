@@ -56,6 +56,30 @@
 								</div>
 							</div>
 						</div>
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="col-md-3 control-label">用户角色：</label>
+									<div class="col-md-9">
+										<select class="form-control" data-ng-model="vo.userPower"
+											data-ng-options="item.code as item.name for item in userPowerList">
+											<option value="">请选择</option>
+										</select>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="col-md-3 control-label">用户状态：</label>
+									<div class="col-md-9">
+										<select class="form-control" data-ng-model="vo.state"
+											data-ng-options="item.code as item.name for item in stateList">
+											<option value="">请选择</option>
+										</select>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
 					<!-- 查询 -->
 					<div class="form-actions">
@@ -91,7 +115,8 @@
 							<th>性别</th>
 							<th>年龄</th>
 							<th>电话</th>
-							<th>权限</th>
+							<th>角色</th>
+							<th>状态</th>
 							<th>操作</th>
 						</tr>
 					</thead>
@@ -109,8 +134,12 @@
 							</td>
 							<td><span ng-bind="item.userTel"></span>
 							</td>
-							<td><span ng-show="item.userPower == 1">员工</span> <span
-								ng-show="item.userPower == 2">管理员</span></td>
+							<td><span class="label label-sm label-primary" ng-show="item.userPower == 1">员工</span><span
+								class="label label-sm label-warning" ng-show="item.userPower == 2">部门主管</span>
+								<span class="label label-sm label-danger" ng-show="item.userPower == 3">管理员</span></td>
+							<td><span class="label label-sm label-success" ng-show="item.state == 1">启用</span> <span
+								class="label label-sm label-default" ng-show="item.state == 2">停用</span>
+							</td>
 							<td><a ng-href="#/user_detail/{{item.userId}}"
 								class="btn btn-xs default btn-editable"> <i
 									class="fa fa-file-text-o"></i> 详情
@@ -118,7 +147,13 @@
 								class="btn btn-xs default btn-editable"
 								> <i class="fa fa-edit"></i>
 									编辑
-							</a></td>
+							</a><span ng-show="userInfo.userPower==3"><a ng-show="item.state==1"
+								class="btn btn-xs default btn-editable" ng-click="disabled(item.userId)"> <i
+									class="fa fa-lock"></i> 停用
+							</a><a ng-show="item.state==2" class="btn btn-xs default btn-editable" 
+							ng-click="enabled(item.userId)"> <i
+									class="fa fa-unlock"></i> 启用
+							</a></span></td>
 						</tr>
 					</tbody>
 				</table>

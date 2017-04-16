@@ -3,7 +3,6 @@
  */
 package com.hbpu.weboa.service.bl;
 
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,7 +43,6 @@ public class CommentBL {
 	}
 
 	public Integer addComment(Comment comment) {
-		comment.setCreateTime(new Date());
 		commentPOMapper.addComment(comment);
 		return comment.getCommentId();
 	}

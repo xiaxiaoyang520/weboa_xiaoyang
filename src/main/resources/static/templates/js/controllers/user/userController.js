@@ -2,8 +2,8 @@
  * 用户信息列表
  */
 MetronicApp.controller("userController",
-	['$rootScope','$scope','$http','$location','$modal','pagedataLoading','ejpAlert',
-	function($rootScope, $scope, $http, $location, $modal, pagedataLoading,ejpAlert) {
+	['$rootScope','$scope','$http','$location','$modal','pagedataLoading','ejpAlert','getUserInfo',
+	function($rootScope, $scope, $http, $location, $modal, pagedataLoading,ejpAlert,getUserInfo) {
 		$scope.$on('$viewContentLoaded', function() {
 			Metronic.initAjax();
 
@@ -13,7 +13,13 @@ MetronicApp.controller("userController",
 
 			$scope.vo = {} ;
 			
-			$scope.userSexList = [{code:1,name:'帅哥'},{code:2,name:'美女'}]
+			$scope.userSexList = [{code:1,name:'帅哥'},{code:2,name:'美女'}];
+			
+			$scope.stateList = [{code:1,name:'启用'},{code:2,name:'停用'}]
+			
+			$scope.userPowerList = [{code:1,name:'员工'},
+			                    {code:2,name:'部门主管'},
+			                    {code:3,name:'管理员'}];
 
 			var vm = $scope.vm = {};
 			vm.pages = {
@@ -23,6 +29,8 @@ MetronicApp.controller("userController",
 				totalPage : 0
 			};
 			vm.items = [] ;
+			
+			$scope.userInfo = getUserInfo.userInfo();
 			
 			$scope.getUserList = function(){
 				//显示加载中……
@@ -54,6 +62,28 @@ MetronicApp.controller("userController",
 			//清空按钮
 			$scope.resetClick = function() {
 				$scope.vo = {};
+			};
+			
+			//停用用户
+			$scope.disabled = function(userId){
+				var user = {state:2,userId:userId};
+				$http.post("user/updateUser", user).success(function (data) {
+                    if (data.result === "success") {
+                        ejpAlert.show("停用成功！");
+                        $scope.getUserList();
+                    }
+                })
+			};
+			
+			//启用用户
+			$scope.enabled = function(userId){
+				var user = {state:1,userId:userId};
+				$http.post("user/updateUser", user).success(function (data) {
+                    if (data.result === "success") {
+                        ejpAlert.show("启用成功！");
+                        $scope.getUserList();
+                    }
+                })
 			};
 
 		});
@@ -95,11 +125,13 @@ MetronicApp.controller("addUserController",
 	                    $scope.vo.userSex = $scope.user.userSex;
 	                    $scope.vo.userTel = $scope.user.userTel;
 	                    $scope.vo.userAddr = $scope.user.userAddr;
+	                    $scope.vo.userEmail = $scope.user.userEmail;
+	                    $scope.vo.idCardNO = $scope.user.idCardNO;
 	                    $scope.vo.userBirth = new Date($scope.user.userBirth)
 	                    $http.post("user/addUser", $scope.vo).success(function (data) {
 	                        if (data.result === "success") {
 	                            ejpAlert.show("新增成功！");
-	                            $location.path("#/user_list.html");
+	                            $location.path("/user_list.html");
 	                        }
 	                    })
 	                }
@@ -184,7 +216,7 @@ MetronicApp.controller("editUserController",
 					$http.post("user/updateUser", $scope.vo).success(function (data) {
                         if (data.result === "success") {
                             ejpAlert.show("修改成功！");
-                            $location.path("#/user_list.html");
+                            $location.path("/user_list.html");
                         }
                     })
 				}

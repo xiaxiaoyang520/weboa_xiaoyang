@@ -13,20 +13,21 @@ MetronicApp.controller("speechController",
 
 			var vm = $scope.vm = {};
 			vm.pages = {
-				itemsPerPage : 10,
+				itemsPerPage : 5,
 				index :  1,
 				totalResult : 0,
 				totalPage : 0
 			};
 			vm.items = [] ;
-			
+			$scope.vo = {
+					createUser:0
+			};
 			$scope.getSpeechList = function(){
 				//显示加载中……
 				pagedataLoading.loading();
-				$http.post("speech/findSpeechList/"+$scope.vm.pages.index).success(function(data){
+				$http.post("speech/findSpeechList/"+$scope.vm.pages.index+"/"+$scope.vo.createUser).success(function(data){
 					if(data.result==="success"){
 						$scope.vm.items = data.datas.dataList;
-//						$socope.vm.commentList = data.datas.dataList.comments
 						$scope.vm.pages.totalResult = data.datas.pager.recordCount;
 						$scope.vm.pages.totalPage = data.datas.pager.totalPage;
 					}
@@ -36,22 +37,22 @@ MetronicApp.controller("speechController",
 			}
 			$scope.getSpeechList();
 
-			/* ***********************查询功能********************************** */
-			//查询按钮
-			$scope.searchClick = function() {
-
-				$scope.vm.pages = {
-					itemsPerPage : 10,
-					index : 1,
-					totalResult : 0,
-					totalPage : 0
-				};
-				$scope.getSpeechList();
-			};
-			//清空按钮
-			$scope.resetClick = function() {
-				$scope.vo = {};
-			};
+//			/* ***********************查询功能********************************** */
+//			//查询按钮
+//			$scope.searchClick = function() {
+//
+//				$scope.vm.pages = {
+//					itemsPerPage : 10,
+//					index : 1,
+//					totalResult : 0,
+//					totalPage : 0
+//				};
+//				$scope.getSpeechList();
+//			};
+//			//清空按钮
+//			$scope.resetClick = function() {
+//				$scope.vo = {};
+//			};
 			
 			//点赞方法
 			var userInfo = $scope.userInfo = getUserInfo.userInfo();
@@ -62,51 +63,62 @@ MetronicApp.controller("speechController",
 						}
 					})
 			
-		};
+			};
+			//发表评论
+			$scope.releaseComment = function(speechId){
+				var comment = {
+						speechId :speechId,
+						userId:userInfo.userId,
+						context:$scope.vo.commentText
+				}
+				$http.post("speech/addComment",comment).success(function(data){
+					if(data.result==="success"){
+						$scope.getSpeechList();
+						$scope.vo.commentText='';
+					}
+				})
+			};
+			
+			//查看自己发表的言论
+			$scope.findMySelfSpeechList = function(){
+				$scope.vo.createUser = userInfo.userId;
+				$scope.getSpeechList();
+			}
+			
+			//查看当前言论发表的人言论
+			$scope.findCurrentUserSpeechList = function(createUser){
+				$scope.vo.createUser = createUser;
+				$scope.getSpeechList();
+			}
+			
+			//查看所有言论
+			$scope.findAllSpeechList = function(){
+				$scope.vo.createUser = 0;
+				$scope.getSpeechList();
+			}
+			
 		});
 }]);
 
-//新增用户 信息
+//发表言论
 MetronicApp.controller("addSpeechController",
-	    ['$rootScope', '$scope', '$http', '$location', '$modal', 'pagedataLoading', 'ejpAlert',
-	        function ($rootScope, $scope, $http, $location, $modal, pagedataLoading, ejpAlert) {
+	    ['$rootScope', '$scope', '$http', '$location', '$modal', 'pagedataLoading', 'ejpAlert','getUserInfo',
+	        function ($rootScope, $scope, $http, $location, $modal, pagedataLoading, ejpAlert,getUserInfo) {
 	            $scope.$on('$viewContentLoaded', function () {
 	                Metronic.initAjax();
 
 	                // set default layout mode
 	                $rootScope.settings.layout.pageBodySolid = false;
 	                $rootScope.settings.layout.pageSidebarClosed = false;
-	                
-	                $scope.userSexs=[
-									 {code:1,name:'帅哥'},
-									 {code:2,name:'美女'},
-								   ];
-	                $scope.user = {
-	                		userSex:1
-	    				};
-
 	                $scope.vo = {};
-	                
-	                $scope.getPostList = function(){
-	    				$http.post("common/findPostList").success(function(data){
-	    					if(data.result === "success"){
-	    						$scope.userPostList = data.list;
-	    					}
-	    				})
-	    			}
-	    			$scope.getPostList();
-
 	                //保存
-	                $scope.userSubmit = function () {
-	                    $scope.vo.userName = $scope.user.userName;
-	                    $scope.vo.userSex = $scope.user.userSex;
-	                    $scope.vo.userTel = $scope.user.userTel;
-	                    $scope.vo.userAddr = $scope.user.userAddr;
-	                    $scope.vo.userBirth = new Date($scope.user.userBirth)
-	                    $http.post("user/addUser", $scope.vo).success(function (data) {
+	                var userInfo = $scope.userInfo = getUserInfo.userInfo();
+	                $scope.speechSubmit = function () {
+	                	$scope.vo.createUser = userInfo.userId;
+	                    $http.post("speech/addSpeech", $scope.vo).success(function (data) {
 	                        if (data.result === "success") {
-	                            ejpAlert.show("新增成功！");
-	                            $location.path("#/user_list.html");
+	                            ejpAlert.show("发表成功！");
+	                            $location.path("#/speech_list.html");
 	                        }
 	                    })
 	                }

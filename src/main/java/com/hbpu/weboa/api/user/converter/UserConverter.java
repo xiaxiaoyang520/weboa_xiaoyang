@@ -27,6 +27,7 @@ public class UserConverter {
 		userVO.setUserSex(user.getUserSex());
 		userVO.setUserTel(user.getUserTel());
 		userVO.setUserPower(user.getUserPower());
+		userVO.setState(user.getState());
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
 		Integer beginYear = Integer.valueOf(sdf.format(user.getUserBirth()));
 		Integer endYear = Integer.valueOf(sdf.format(new Date()));
@@ -57,6 +58,9 @@ public class UserConverter {
 		userRO.setUserTel(user.getUserTel());
 		userRO.setUserPower(user.getUserPower());
 		userRO.setUserAddr(user.getUserAddr());
+		userRO.setState(user.getState());
+		userRO.setIdCardNO(user.getIdCardNO());
+		userRO.setUserEmail(user.getUserEmail());
 		return userRO;
 	}
 }

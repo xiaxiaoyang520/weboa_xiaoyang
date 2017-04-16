@@ -39,17 +39,17 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider',
                             }]
                     }
                 })
-            //新增言论
+            //发表言论
             .state(
                 'speech_add',
                 {
                     url: "/speech_add.html",
                     templateUrl: "views/speech/speech_add.html",
                     data: {
-                        pageTitle: '言论新增'
+                        pageTitle: '言论发表'
                     },
                     ncyBreadcrumb: {
-                        label: '言论新增',
+                        label: '言论发表',
                         parent: 'speech_list'
                     },
                     controller: "addSpeechController",

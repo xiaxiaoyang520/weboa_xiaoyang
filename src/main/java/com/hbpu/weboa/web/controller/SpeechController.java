@@ -41,10 +41,11 @@ public class SpeechController {
 	@Autowired
 	private UserService userService;
 	
-	@RequestMapping(value="/templates/speech/findSpeechList/{currentPage}",method=RequestMethod.POST)
-	public BaseResult findSpeechList(@PathVariable("currentPage") Integer currentPage){
-		PagerCondition pagerCondition = new PagerCondition(currentPage, 10);
-		PageList<Speech> speechPage = speechService.findSpeechList(pagerCondition);
+	@RequestMapping(value="/templates/speech/findSpeechList/{currentPage}/{createUser}",method=RequestMethod.POST)
+	public BaseResult findSpeechList(@PathVariable("currentPage") Integer currentPage,
+			@PathVariable Integer createUser){
+		PagerCondition pagerCondition = new PagerCondition(currentPage, 5);
+		PageList<Speech> speechPage = speechService.findSpeechList(pagerCondition,createUser);
 		List<Speech> speechList = speechPage.getDataList();
 		for (Speech speech : speechList) {
 			Integer speechId = speech.getSpeechId();
@@ -71,6 +72,12 @@ public class SpeechController {
 			speechService.addPraiseRecord(speechId,userId);
 			speechService.addPraiseNum(speechId);
 		}
+		return BaseResult.getSuccessResult();
+	}
+	
+	@RequestMapping(value="/templates/speech/addComment",method=RequestMethod.POST)
+	public BaseResult addComment(@RequestBody Comment comment){
+		speechService.addComment(comment);
 		return BaseResult.getSuccessResult();
 	}
 	
