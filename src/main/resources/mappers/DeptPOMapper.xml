@@ -34,6 +34,15 @@
 	</where>
   </select>
   
+  <select id="queryDeptByDeptHeader" resultType="com.hbpu.weboa.service.domain.Dept" parameterType="java.lang.Integer" >
+    select 
+        <include refid="Base_Column_List" />
+    from  depts
+    <where>
+	    DeptHeader = #{deptHeader,jdbcType=INTEGER}
+	</where>
+  </select>
+  
  <!-- 插入部门信息 -->
   <insert id="addDept" parameterType="com.hbpu.weboa.service.domain.Dept" useGeneratedKeys="true" keyProperty="deptId">
     insert into depts

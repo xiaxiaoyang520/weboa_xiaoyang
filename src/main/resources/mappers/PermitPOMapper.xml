@@ -43,6 +43,13 @@
 	</where>
   </select>
   
+  <select id="queryPermitById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select 
+        <include refid="Base_Column_List" />
+    from  permits
+     where PermitId=#{permitId,jdbcType=INTEGER}
+  </select>
+  
  <!-- 插入审核信息 -->
   <insert id="addPermit" parameterType="com.hbpu.weboa.service.domain.Permit" useGeneratedKeys="true" keyProperty="permitId">
     insert into permits

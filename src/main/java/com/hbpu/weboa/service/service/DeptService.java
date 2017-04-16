@@ -38,5 +38,10 @@ public class DeptService{
 		AssertUtils.notNull(dept, "更新部门信息对象为空");
 		deptBL.update(dept);
 	}
+	
+	public Dept queryDeptByDeptHeader(Integer deptHeader){
+		AssertUtils.notNull(deptHeader, "部门主管为空");
+		return deptBL.queryDeptByDeptHeader(deptHeader);
+	}
 
 }

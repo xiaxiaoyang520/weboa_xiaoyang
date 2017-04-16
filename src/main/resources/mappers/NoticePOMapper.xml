@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hbpu.weboa.service.dao.NoticePOMapper" >
+  <resultMap id="BaseResultMap" type="com.hbpu.weboa.service.domain.Notice" >
+    <id column="NoticeId" property="noticeId" jdbcType="INTEGER" />
+    <result column="NoticeTitle" property="noticeTitle" jdbcType="VARCHAR" />
+    <result column="NoticeContext" property="noticeContext" jdbcType="VARCHAR"/>
+    <result column="CreateTime" property="createTime" jdbcType="TIMESTAMP"/>
+    <result column="CreateUser" property="createUser" jdbcType="INTEGER"/>
+    <result column="NoticeType" property="noticeType" jdbcType="INTEGER"/>
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    NoticeId, NoticeTitle, NoticeContext, CreateTime, CreateUser, NoticeType
+  </sql>
+
+  <!-- 获取言论信息列表 -->
+  <select id="findNoticeList" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select 
+        <include refid="Base_Column_List" />
+    from  notices
+    <where>
+	    <if test="createUser != null"> and CreateUser = #{createUser,jdbcType=INTEGER} </if>
+	    <if test="noticeType != null"> and NoticeType = #{noticeType,jdbcType=INTEGER} </if>
+	</where>
+	  order by CreateTime desc
+  	<if test="offset != null and limitnum!=null">
+		limit
+		#{offset,jdbcType=INTEGER},#{limitnum,jdbcType=INTEGER}
+	</if>
+  </select>
+  
+  <!-- 获取言论信息列表数量 -->
+  <select id="getNoticeListNum" resultType="java.lang.Integer" parameterType="java.util.Map" >
+    select 
+        count(NoticeId)
+    from  notices
+    <where>
+	    <if test="createUser != null"> and CreateUser = #{createUser,jdbcType=INTEGER} </if>
+	    <if test="noticeType != null"> and NoticeType = #{noticeType,jdbcType=INTEGER} </if>
+	</where>
+  </select>
+  
+  <select id="queryNoticeById" resultMap="BaseResultMap"  parameterType="java.lang.Integer" >
+    select 
+        <include refid="Base_Column_List" />
+    from  notices where
+    NoticeId = #{notice,jdbcType=INTEGER}
+  </select>
+  
+ <!-- 添加言论信息 -->
+  <insert id="addNotice" parameterType="com.hbpu.weboa.service.domain.Notice" useGeneratedKeys="true" keyProperty="noticeId">
+    insert into notices
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="noticeId != null" > NoticeId,</if>
+      <if test="noticeTitle != null" >NoticeTitle,</if>
+      <if test="noticeContext != null" > NoticeContext,</if>
+      <if test="createUser != null">CreateUser,</if>
+      <if test="noticeType != null">NoticeType,</if>
+      CreateTime,
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="noticeId != null" >#{noticeId,jdbcType=INTEGER},</if>
+      <if test="noticeTitle != null" > #{noticeTitle,jdbcType=VARCHAR},</if>
+      <if test="noticeContext != null">#{noticeContext,jdbcType=VARCHAR},</if>
+      <if test="createUser != null">#{createUser,jdbcType=INTEGER},</if>
+      <if test="noticeType != null">#{noticeType,jdbcType=INTEGER},</if>
+      NOW(),
+    </trim>
+  </insert>
+  
+</mapper>

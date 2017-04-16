@@ -38,4 +38,9 @@ public class PermitService{
 		AssertUtils.notNull(permit, "修改审核信息对象为空");
 		permitBL.updatePermit(permit);
 	}
+	
+	public Permit queryPermitById(Integer permitId){
+		AssertUtils.notNull(permitId, "审核id为空");
+		return permitBL.queryPermitById(permitId);
+	}
 }

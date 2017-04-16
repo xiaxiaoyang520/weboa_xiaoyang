@@ -43,4 +43,10 @@ public interface PermitPOMapper {
 	 */
 	void updatePermit(Permit permit);
 	
+	/**
+	 * 通过id查询审核信息
+	 * @param permitId
+	 */
+	Permit queryPermitById(Integer permitId);
+	
 }

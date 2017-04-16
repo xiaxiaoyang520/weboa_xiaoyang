@@ -60,4 +60,8 @@ public class PermitBL {
 		permit.setHandleTime(new Date());
 		permitPOMapper.updatePermit(permit);
 	}
+	
+	public Permit queryPermitById(Integer permitId) {
+		return permitPOMapper.queryPermitById(permitId);
+	}
 }

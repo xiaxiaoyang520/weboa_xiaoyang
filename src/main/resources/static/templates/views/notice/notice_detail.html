@@ -1,0 +1,72 @@
+<div>
+	<h3 class="page-title" data-ng-bind="$state.current.data.pageTitle"></h3>
+	 <div data-ncy-breadcrumb></div>
+</div>
+<div class="row">
+		<div class="col-md-8">
+					<div class="portlet box blue" ng-show="notice.noticeType==2">
+						<div class="portlet-title">
+							<div class="caption">
+								<i class="fa fa-calendar-o"></i>公告详情
+							</div>
+							<div class="tools">
+								<a href="javascript:;" class="collapse">
+								</a>
+								<a href="#/notice_detail.html/{{notice.noticeId}}" class="reload">
+								</a>
+								<a href="javascript:;" class="remove">
+								</a>
+							</div>
+						</div>
+						<div class="portlet-body">
+							<div class="alert alert-block alert-success fade in">
+								<button type="button" class="close" data-dismiss="alert"></button>
+								<h4 class="alert-heading">{{notice.noticeTitle}}</h4>
+								<p>{{notice.noticeContext}}</p>
+								<h4 class="col-md-12 row text-right">--{{notice.createUserName}}</h4>
+								<div class="row">
+								<p style="margin-left:20px">
+									<a class="btn green" href="#/notice_list.html">
+									我知道了 </a>
+									<a class="btn red" href="javascript:;">
+									我不知道 </a>
+								</p>
+								</div>
+								
+							</div>
+						</div>
+					</div>
+					
+					<div class="portlet box grey-cascade" ng-show="notice.noticeType==1">
+						<div class="portlet-title">
+							<div class="caption">
+								<i class="fa fa-bullhorn"></i>通知详情
+							</div>
+							<div class="tools">
+								<a href="javascript:;" class="collapse">
+								</a>
+								<a href="#/notice_detail.html/{{notice.noticeId}}" class="reload">
+								</a>
+								<a href="javascript:;" class="remove">
+								</a>
+							</div>
+						</div>
+						<div class="portlet-body">
+							<div class="alert alert-block alert-success fade in">
+								<button type="button" class="close" data-dismiss="alert"></button>
+								<h4 class="alert-heading">{{notice.noticeTitle}}</h4>
+								<p>{{notice.noticeContext}}</p>
+								<h4 class="col-md-12 row text-right">--{{notice.createUserName}}</h4>
+								<div class="row">
+								<p style="margin-left:20px">
+									<a class="btn green" href="#/notice_list.html">
+									我知道了 </a>
+									<a class="btn red" href="javascript:;">
+									我不知道 </a>
+								</p>
+								</div>
+							</div>
+						</div>
+					</div>	
+				</div>
+</div>

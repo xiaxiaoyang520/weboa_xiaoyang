@@ -41,4 +41,10 @@ public interface DeptPOMapper {
 	 */
 	void updateDept(Dept dept);
 	
+	/**
+	 * 通过部门主管查询部门信息
+	 * @param deptHeader
+	 */
+	Dept queryDeptByDeptHeader(Integer deptHeader);
+	
 }

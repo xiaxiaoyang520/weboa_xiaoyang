@@ -2,22 +2,22 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider',
     function ($stateProvider, $urlRouterProvider) {
 
         // 默认跳转路径
-        $urlRouterProvider.otherwise("/speech_list.html");
+        $urlRouterProvider.otherwise("/permit_list.html");
 
         $stateProvider
-            //言论信息列表
+            //审核列表
             .state(
-                'speech_list',
+                'permit_list',
                 {
-                    url: "/speech_list.html",
-                    templateUrl: "views/speech/speech_list.html",
+                    url: "/permit_list.html",
+                    templateUrl: "views/permit/permit_list.html",
                     data: {
-                        pageTitle: '言论列表'
+                        pageTitle: '审核列表'
                     },
                     ncyBreadcrumb: {
-                        label: '言论列表',
+                        label: '审核列表',
                     },
-                    controller: "speechController",
+                    controller: "permitController",
                     resolve: {
                         deps: [
                             '$ocLazyLoad',
@@ -34,25 +34,25 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider',
                                             '../assets/global/plugins/jquery.cityselect.js',
                                             '../assets/global/plugins/jquery.cityselect.init.js',
                                             '../assets/global/plugins/angularjs/angular-sanitize.js',
-                                            'js/controllers/speech/speechController.js']
+                                            'js/controllers/permit/permitController.js']
                                     }]);
                             }]
                     }
                 })
             //发表言论
             .state(
-                'speech_add',
+                'permit_add',
                 {
-                    url: "/speech_add.html",
-                    templateUrl: "views/speech/speech_add.html",
+                    url: "/permit_add.html",
+                    templateUrl: "views/permit/permit_add.html",
                     data: {
-                        pageTitle: '言论发表'
+                        pageTitle: '审核提交'
                     },
                     ncyBreadcrumb: {
-                        label: '言论发表',
-                        parent: 'speech_list'
+                        label: '审核提交',
+                        parent: 'permit_list'
                     },
-                    controller: "addSpeechController",
+                    controller: "addPermitController",
                     resolve: {
                         deps: [
                             '$ocLazyLoad',
@@ -69,7 +69,7 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider',
                                             '../assets/global/plugins/jquery.cityselect.js',
                                             '../assets/global/plugins/jquery.cityselect.init.js',
                                             '../assets/global/plugins/angularjs/angular-sanitize.js',
-                                            'js/controllers/speech/speechController.js']
+                                            'js/controllers/permit/permitController.js']
                                     }]);
                             }]
                     }

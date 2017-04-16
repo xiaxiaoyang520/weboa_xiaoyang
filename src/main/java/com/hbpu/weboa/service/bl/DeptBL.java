@@ -39,4 +39,8 @@ public class DeptBL {
 	public void update(Dept dept){
 		deptPOMapper.updateDept(dept);
 	}
+	
+	public Dept queryDeptByDeptHeader(Integer deptHeader){
+		return deptPOMapper.queryDeptByDeptHeader(deptHeader);
+	}
 }

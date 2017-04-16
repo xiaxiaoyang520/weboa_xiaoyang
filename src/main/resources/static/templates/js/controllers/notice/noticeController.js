@@ -1,79 +1,75 @@
 /**
- *部门信息列表
+ * 通知和公告
  */
-MetronicApp.controller("deptController",
-	['$rootScope','$scope','$http','$location','$modal','pagedataLoading','ejpAlert',
-	function($rootScope, $scope, $http, $location, $modal, pagedataLoading,ejpAlert) {
+MetronicApp.controller("noticeController",
+	['$rootScope','$scope','$http','$location','$modal','pagedataLoading','ejpAlert','getUserInfo',
+	function($rootScope, $scope, $http, $location, $modal, pagedataLoading,ejpAlert,getUserInfo) {
 		$scope.$on('$viewContentLoaded', function() {
 			Metronic.initAjax();
 
 			// set default layout mode
 			$rootScope.settings.layout.pageBodySolid = false;
 			$rootScope.settings.layout.pageSidebarClosed = false;
-
-			$scope.vo = {} ;
 			
+			$scope.userInfo = getUserInfo.userInfo();
 
 			var vm = $scope.vm = {};
+			vm.pages = {
+				itemsPerPage : 5,
+				index :  1,
+				totalResult : 0,
+				totalPage : 0
+			};
 			vm.items = [] ;
-			
-			$scope.getDeptList = function(){
+			$scope.vo = {};
+			$scope.getNoticeList = function(){
 				//显示加载中……
 				pagedataLoading.loading();
-				$http.post("dept/findDeptList", $scope.vo).success(function(data){
+				$http.post("notice/findNoticeList/"+$scope.vm.pages.index,$scope.vo).success(function(data){
 					if(data.result==="success"){
-						$scope.vm.items = data.list;
+						$scope.vm.items = data.datas.dataList;
+						$scope.vm.pages.totalResult = data.datas.pager.recordCount;
+						$scope.vm.pages.totalPage = data.datas.pager.totalPage;
 					}
 					//隐藏加载中……
 					pagedataLoading.unloading();
 				})
 			}
-			$scope.getDeptList();
-
-			/* ***********************查询功能********************************** */
-			//查询按钮
-			$scope.searchClick = function() {
-				$scope.getDeptList();
-			};
-			//清空按钮
-			$scope.resetClick = function() {
-				$scope.vo = {};
-			};
+			$scope.getNoticeList();
 
 		});
 }]);
 
-//新增部门 信息
-MetronicApp.controller("addDeptController",
-	    ['$rootScope', '$scope', '$http', '$location', '$modal', 'pagedataLoading', 'ejpAlert',
-	        function ($rootScope, $scope, $http, $location, $modal, pagedataLoading, ejpAlert) {
+//发布通知和公告
+MetronicApp.controller("addNoticeController",
+	    ['$rootScope', '$scope', '$http', '$location', '$modal', 'pagedataLoading', 'ejpAlert','getUserInfo',
+	        function ($rootScope, $scope, $http, $location, $modal, pagedataLoading, ejpAlert,getUserInfo) {
 	            $scope.$on('$viewContentLoaded', function () {
 	                Metronic.initAjax();
 
 	                // set default layout mode
 	                $rootScope.settings.layout.pageBodySolid = false;
 	                $rootScope.settings.layout.pageSidebarClosed = false;
-	                
 	                $scope.vo = {};
-	                $http.post("common/findAllUserList").success(function (data) {
-                        if (data.result === "success") {
-                            $scope.userList = data.list;
-                        }
-	                });
+	                
+	                $scope.noticeTypeList = [{code:1,name:'通知'},{code:2,name:'公告'}];
+	                
 	                //保存
-	                $scope.deptSubmit = function () {
-	                    $http.post("dept/addDept", $scope.vo).success(function (data) {
+	                var userInfo = $scope.userInfo = getUserInfo.userInfo();
+	                $scope.noticeSubmit = function () {
+	                	$scope.vo.createUser = userInfo.userId;
+	                    $http.post("notice/addNotice", $scope.vo).success(function (data) {
 	                        if (data.result === "success") {
-	                            ejpAlert.show("新增成功！");
-	                            $location.path("/dept_list.html");
+	                            ejpAlert.show("发布成功！");
+	                            $location.path("/notice_list.html");
 	                        }
 	                    })
 	                }
 	            });
 	        }]);
 
-//部门详细信息
-MetronicApp.controller("detailDeptController",
+//用户详细信息
+MetronicApp.controller("detailNoticeController",
 		['$rootScope','$scope','$http','$location','$modal','pagedataLoading','ejpAlert','$stateParams',
 		function($rootScope, $scope, $http, $location, $modal, pagedataLoading,ejpAlert,$stateParams) {
 			$scope.$on('$viewContentLoaded', function() {
@@ -85,26 +81,28 @@ MetronicApp.controller("detailDeptController",
 
 			   $scope.id =	$stateParams.id;
 
-				//获得部门详情
-				$scope.deptDetail = function(){
+               $scope.tastVO = {} ;
+
+				//获得用户详情
+				$scope.noticeDetail = function(){
 					// 正在加载
 					Metronic.blockUI({
 						message:'加载中，请稍后...'
 					});
-					$http.post("dept/queryDeptById/"+$stateParams.id).success(function(data){
+					$http.post("notice/queryNoticeById/"+$stateParams.id).success(function(data){
 						if(data.result==="success"){
-							$scope.vo = data.data ;
+							$scope.notice = data.data ;
 						}
 						// 取消加载
 						Metronic.unblockUI();
 					})
 				}
-				$scope.deptDetail() ;
+				$scope.noticeDetail() ;
 				
 			});
 	}]);
-//编辑部门信息
-MetronicApp.controller("editDeptController",
+
+MetronicApp.controller("editUserController",
 		['$rootScope','$scope','$http','$location','$modal','pagedataLoading','ejpAlert','$stateParams',
 		function($rootScope, $scope, $http, $location, $modal, pagedataLoading,ejpAlert,$stateParams) {
 			$scope.$on('$viewContentLoaded', function() {
@@ -118,13 +116,13 @@ MetronicApp.controller("editDeptController",
 
                $scope.vo = {} ;
 
-				//获得部门详情
-				$scope.getDeptDetail = function(){
+				//获得用户详情
+				$scope.userDetail = function(){
 					// 正在加载
 					Metronic.blockUI({
 						message:'加载中，请稍后...'
 					});
-					$http.post("dept/queryDeptById/"+$stateParams.id).success(function(data){
+					$http.post("user/queryUserById/"+$stateParams.id).success(function(data){
 						if(data.result==="success"){
 							$scope.vo = data.data ;
 						}
@@ -132,14 +130,23 @@ MetronicApp.controller("editDeptController",
 						Metronic.unblockUI();
 					})
 				}
-				$scope.getDeptDetail();
+				$scope.userDetail() ;
 				
-				//跟新部门信息
-				$scope.deptSubmit = function(){
-					$http.post("dept/updateDept", $scope.vo).success(function (data) {
+				$scope.getPostList = function(){
+    				$http.post("common/findPostList").success(function(data){
+    					if(data.result === "success"){
+    						$scope.userPostList = data.list;
+    					}
+    				})
+    			}
+    			$scope.getPostList();
+				
+				//跟新用户信息
+				$scope.userSubmit = function(){
+					$http.post("user/updateUser", $scope.vo).success(function (data) {
                         if (data.result === "success") {
                             ejpAlert.show("修改成功！");
-                            $location.path("/dept_list.html");
+                            $location.path("#/user_list.html");
                         }
                     })
 				}

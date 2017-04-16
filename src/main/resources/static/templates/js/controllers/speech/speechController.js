@@ -118,7 +118,7 @@ MetronicApp.controller("addSpeechController",
 	                    $http.post("speech/addSpeech", $scope.vo).success(function (data) {
 	                        if (data.result === "success") {
 	                            ejpAlert.show("发表成功！");
-	                            $location.path("#/speech_list.html");
+	                            $location.path("/speech_list.html");
 	                        }
 	                    })
 	                }

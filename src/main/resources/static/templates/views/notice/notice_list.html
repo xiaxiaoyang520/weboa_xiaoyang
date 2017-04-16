@@ -1,0 +1,67 @@
+<div style="margin-bottom:10px">
+	<!-- BEGIN PAGE HEADER-->
+	<h3 class="page-title" data-ng-bind="$state.current.data.pageTitle"></h3>
+	<div data-ncy-breadcrumb></div>
+</div>
+<div class="table-toolbar" ng-show="userInfo.userPower>1">
+				<div class="btn-group">
+					<a href="#/notice_add.html" class="btn green"> <i
+						class="fa fa-plus"></i> 我要发布
+					</a>
+				</div>
+			</div>
+<div class="row">
+				<div class="col-md-12">
+					<ul class="timeline">
+						<li class="timeline-grey" ng-show="item.noticeType==1" data-ng-repeat="item in vm.items">
+							<div class="timeline-time">
+								<span class="date" ng-bind="item.createTime | date:'yyyy-MM-dd'"></span>
+								<span class="time" ng-bind="item.createTime | date:'hh:mm'"></span>
+							</div>
+							<div class="timeline-icon">
+								<i class="fa fa-bullhorn"></i>
+							</div>
+							<div class="timeline-body" >
+								<h2>{{item.noticeTitle}}</h2>
+								<div class="timeline-content">
+									 {{item.noticeContext}}
+								</div>
+								<div class="timeline-footer">
+									<a href="#/notice_detail/{{item.noticeId}}" class="nav-link pull-right">
+									更多 <i class="m-icon-swapright m-icon-white"></i>
+									</a>
+								</div>
+							</div>
+						</li>
+						<li class="timeline-blue" ng-show="item.noticeType==2" data-ng-repeat="item in vm.items">
+							<div class="timeline-time">
+								<span class="date" ng-bind="item.createTime | date:'yyyy-MM-dd'"></span>
+								<span class="time" ng-bind="item.createTime | date:'hh:mm'"></span>
+							</div>
+							<div class="timeline-icon">
+								<i class="fa fa-calendar-o"></i>
+							</div>
+							<div class="timeline-body">
+								<h2>{{item.noticeTitle}}</h2>
+								<div class="timeline-content">
+									 {{item.noticeContext}}
+								</div>
+								<div class="timeline-footer">
+									<a href="#/notice_detail/{{item.noticeId}}" class="nav-link pull-right">
+									更多 <i class="m-icon-swapright m-icon-white"></i>
+									</a>
+								</div>
+							</div>
+						</li>
+					</ul>
+				</div>
+				<pagination boundary-links="true"
+				items-per-page="vm.pages.itemsPerPage"
+				total-items="vm.pages.totalResult" ng-model="vm.pages.index"
+				class="pagination-sm pull-right" previous-text="&lsaquo;"
+				next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"
+				ng-change="getSpeechList()"></pagination>
+			<h5 class="col-md-4">每页 {{vm.pages.itemsPerPage}}条 | 共 {{vm.pages.totalResult}}
+				条记录 | 当前第 {{vm.pages.index}} 页 | 共 {{vm.pages.totalPage}} 页</h5>
+			
+			</div>

@@ -36,6 +36,11 @@ public class Permit implements Serializable{
 	private Integer submitUser;
 	
 	/**
+	 * 提交用户名称
+	 */
+	private String submitUserName;
+	
+	/**
 	 * 提交时间
 	 */
 	private Date submitTime;
@@ -49,6 +54,11 @@ public class Permit implements Serializable{
 	 * 处理用户id
 	 */
 	private Integer handleUser;
+	
+	/**
+	 * 处理用户名称
+	 */
+	private String handleUserName;
 	
 	/**
 	 * 处理时间
@@ -130,6 +140,22 @@ public class Permit implements Serializable{
 
 	public void setHandleRemark(String handleRemark) {
 		this.handleRemark = handleRemark;
+	}
+
+	public String getSubmitUserName() {
+		return submitUserName;
+	}
+
+	public void setSubmitUserName(String submitUserName) {
+		this.submitUserName = submitUserName;
+	}
+
+	public String getHandleUserName() {
+		return handleUserName;
+	}
+
+	public void setHandleUserName(String handleUserName) {
+		this.handleUserName = handleUserName;
 	}
 
 	
