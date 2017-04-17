@@ -21,6 +21,7 @@ import com.hbpu.weboa.service.utils.PageList;
 import com.hbpu.weboa.service.utils.PagerCondition;
 import com.hbpu.weboa.web.pagemodel.BaseResult;
 import com.hbpu.weboa.web.pagemodel.PagesResult;
+import com.hbpu.weboa.web.pagemodel.ROResult;
 
 /**  
  * 审核控制器
@@ -90,6 +91,20 @@ public class PermitController {
 			User handleUser  = userService.getUserById(handleUserId);
 			permit.setHandleUserName(handleUser.getUserName());
 		}
+		return new ROResult<Permit>(permit);
+	}
+	
+	@RequestMapping(value="/templates/permit/approve",method=RequestMethod.POST)
+	public BaseResult approve(@RequestBody Permit permit){
+		permit.setPermitState(2);
+		permitService.updatePermit(permit);
+		return BaseResult.getSuccessResult();
+	}
+	
+	@RequestMapping(value="/templates/permit/disApprove",method=RequestMethod.POST)
+	public BaseResult disApprove(@RequestBody Permit permit){
+		permit.setPermitState(3);
+		permitService.updatePermit(permit);
 		return BaseResult.getSuccessResult();
 	}
 	
