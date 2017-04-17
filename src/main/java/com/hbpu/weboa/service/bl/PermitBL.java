@@ -68,7 +68,7 @@ public class PermitBL {
 	
 	public Integer addPermit(Permit permit){
 		permit.setSubmitTime(new Date());
-		permit.setPermitState(1);
+		permit.setPermitState(0);
 		permitPOMapper.addPermit(permit);
 		return permit.getPermitId();
 	}

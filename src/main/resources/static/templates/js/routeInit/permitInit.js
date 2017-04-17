@@ -74,39 +74,4 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider',
                             }]
                     }
                 })
-                
-                .state(
-                        'permit_detail',
-                        {
-                            url: "/permit_detail/:id",
-                            templateUrl: "views/permit/permit_detail.html",
-                            data: {
-                                pageTitle: '审核详情'
-                            },
-                            ncyBreadcrumb: {
-                                label: '审核详情',
-                                parent: 'permit_list'
-                            },
-                            controller: "detailPermitController",
-                            resolve: {
-                                deps: [
-                                    '$ocLazyLoad',
-                                    function ($ocLazyLoad) {
-                                        return $ocLazyLoad
-                                            .load([{
-                                                name: 'MetronicApp',
-                                                insertBefore: '#ng_load_plugins_before',
-                                                files: [
-                                                    '../assets/global/plugins/select2/select2.css',
-                                                    '../assets/global/plugins/angularjs/plugins/ui-select/selectize.default.css',
-                                                    '../assets/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css',
-                                                    '../assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js',
-                                                    '../assets/global/plugins/jquery.cityselect.js',
-                                                    '../assets/global/plugins/jquery.cityselect.init.js',
-                                                    '../assets/global/plugins/angularjs/angular-sanitize.js',
-                                                    'js/controllers/permit/permitController.js']
-                                            }]);
-                                    }]
-                            }
-                        })
     }]);

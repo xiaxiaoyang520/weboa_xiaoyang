@@ -68,7 +68,7 @@ MetronicApp.controller("addNoticeController",
 	            });
 	        }]);
 
-//通知和公告详细信息
+//用户详细信息
 MetronicApp.controller("detailNoticeController",
 		['$rootScope','$scope','$http','$location','$modal','pagedataLoading','ejpAlert','$stateParams',
 		function($rootScope, $scope, $http, $location, $modal, pagedataLoading,ejpAlert,$stateParams) {
@@ -81,7 +81,9 @@ MetronicApp.controller("detailNoticeController",
 
 			   $scope.id =	$stateParams.id;
 
-				//获得详情
+               $scope.tastVO = {} ;
+
+				//获得用户详情
 				$scope.noticeDetail = function(){
 					// 正在加载
 					Metronic.blockUI({
@@ -97,8 +99,56 @@ MetronicApp.controller("detailNoticeController",
 				}
 				$scope.noticeDetail() ;
 				
-				$scope.hehe=function(){
-					ejpAlert.show("不知道请再看一遍！");
+			});
+	}]);
+
+MetronicApp.controller("editUserController",
+		['$rootScope','$scope','$http','$location','$modal','pagedataLoading','ejpAlert','$stateParams',
+		function($rootScope, $scope, $http, $location, $modal, pagedataLoading,ejpAlert,$stateParams) {
+			$scope.$on('$viewContentLoaded', function() {
+				Metronic.initAjax();
+
+				// set default layout mode
+				$rootScope.settings.layout.pageBodySolid = false;
+				$rootScope.settings.layout.pageSidebarClosed = false;
+
+			   $scope.id =	$stateParams.id;
+
+               $scope.vo = {} ;
+
+				//获得用户详情
+				$scope.userDetail = function(){
+					// 正在加载
+					Metronic.blockUI({
+						message:'加载中，请稍后...'
+					});
+					$http.post("user/queryUserById/"+$stateParams.id).success(function(data){
+						if(data.result==="success"){
+							$scope.vo = data.data ;
+						}
+						// 取消加载
+						Metronic.unblockUI();
+					})
+				}
+				$scope.userDetail() ;
+				
+				$scope.getPostList = function(){
+    				$http.post("common/findPostList").success(function(data){
+    					if(data.result === "success"){
+    						$scope.userPostList = data.list;
+    					}
+    				})
+    			}
+    			$scope.getPostList();
+				
+				//跟新用户信息
+				$scope.userSubmit = function(){
+					$http.post("user/updateUser", $scope.vo).success(function (data) {
+                        if (data.result === "success") {
+                            ejpAlert.show("修改成功！");
+                            $location.path("#/user_list.html");
+                        }
+                    })
 				}
 				
 			});
