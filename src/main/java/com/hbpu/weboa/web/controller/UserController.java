@@ -17,6 +17,7 @@ import com.hbpu.weboa.service.domain.Post;
 import com.hbpu.weboa.service.domain.User;
 import com.hbpu.weboa.service.service.PostService;
 import com.hbpu.weboa.service.service.UserService;
+import com.hbpu.weboa.service.utils.AssertUtils;
 import com.hbpu.weboa.service.utils.PageList;
 import com.hbpu.weboa.service.utils.PagerCondition;
 import com.hbpu.weboa.web.pagemodel.BaseResult;
@@ -50,6 +51,8 @@ public class UserController {
 	
 	@RequestMapping(value="/templates/user/addUser",method=RequestMethod.POST)
 	public BaseResult addUser(@RequestBody User user){
+		String userTel = user.getUserTel();
+		AssertUtils.isTrue(userService.checkUserTel(userTel), "你输入的手机号已存在！");
 		userService.addUser(user);
 		return BaseResult.getSuccessResult();
 	}

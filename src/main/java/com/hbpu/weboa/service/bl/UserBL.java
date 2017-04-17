@@ -147,4 +147,8 @@ public class UserBL {
 		}
 		return result;
 	}
+	
+	public User queryUserByName(String userName){
+		return userPOMapper.queryUserByName(userName);
+	}
 }

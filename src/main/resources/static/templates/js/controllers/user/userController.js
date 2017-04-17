@@ -15,7 +15,7 @@ MetronicApp.controller("userController",
 			
 			$scope.userSexList = [{code:1,name:'帅哥'},{code:2,name:'美女'}];
 			
-			$scope.stateList = [{code:1,name:'启用'},{code:2,name:'停用'}]
+			$scope.stateList = [{code:1,name:'启用'},{code:2,name:'停用'}];
 			
 			$scope.userPowerList = [{code:1,name:'员工'},
 			                    {code:2,name:'部门主管'},

@@ -19,17 +19,20 @@
 						<div class="row">
 							<div class="col-md-6">
 								<div class="form-group">
-									<label class="col-md-3 control-label">用户编号：</label>
+									<label class="col-md-3 control-label">审核标题：</label>
 									<div class="col-md-9">
-										<input type="text" ng-model="vo.userId" class="form-control">
+										<input type="text" ng-model="vo.permitTitle" class="form-control">
 									</div>
 								</div>
 							</div>
 							<div class="col-md-6">
 								<div class="form-group">
-									<label class="col-md-3 control-label">用户姓名：</label>
+									<label class="col-md-3 control-label">审核状态：</label>
 									<div class="col-md-9">
-										<input type="text" ng-model="vo.userName" class="form-control">
+										<select class="form-control" data-ng-model="vo.permitState"
+											data-ng-options="item.code as item.name for item in permitStateList">
+											<option value="">请选择</option>
+										</select>
 									</div>
 								</div>
 							</div>
@@ -38,20 +41,17 @@
 						<div class="row">
 							<div class="col-md-6">
 								<div class="form-group">
-									<label class="col-md-3 control-label">用户电话：</label>
+									<label class="col-md-3 control-label">审核提交人：</label>
 									<div class="col-md-9">
-										<input type="text" ng-model="vo.userTel" class="form-control">
+										<input type="text" ng-model="vo.submitUser" class="form-control">
 									</div>
 								</div>
 							</div>
 							<div class="col-md-6">
 								<div class="form-group">
-									<label class="col-md-3 control-label">用户性别：</label>
+									<label class="col-md-3 control-label">审核处理人：</label>
 									<div class="col-md-9">
-										<select class="form-control" data-ng-model="vo.userSex"
-											data-ng-options="item.code as item.name for item in userSexList">
-											<option value="">请选择</option>
-										</select>
+										<input type="text" ng-model="vo.handleUser" class="form-control">
 									</div>
 								</div>
 							</div>
@@ -59,23 +59,31 @@
 						<div class="row">
 							<div class="col-md-6">
 								<div class="form-group">
-									<label class="col-md-3 control-label">用户角色：</label>
+									<label class="col-md-3 control-label">提交时间：</label>
 									<div class="col-md-9">
-										<select class="form-control" data-ng-model="vo.userPower"
-											data-ng-options="item.code as item.name for item in userPowerList">
-											<option value="">请选择</option>
-										</select>
+										<div class="input-group date-picker input-daterange">
+											<input name="submitBeginTime"
+											class="form-control ng-pristine ng-untouched ng-valid"
+											type="text" data-ng-model="vo.submitBeginTime"> <span
+											class="input-group-addon">到</span> <input name="submitEndTime"
+											class="form-control ng-pristine ng-untouched ng-valid"
+											type="text" data-ng-model="vo.submitEndTime">
+										</div>
 									</div>
 								</div>
 							</div>
 							<div class="col-md-6">
 								<div class="form-group">
-									<label class="col-md-3 control-label">用户状态：</label>
+									<label class="col-md-3 control-label">处理时间：</label>
 									<div class="col-md-9">
-										<select class="form-control" data-ng-model="vo.state"
-											data-ng-options="item.code as item.name for item in stateList">
-											<option value="">请选择</option>
-										</select>
+										<div class="input-group date-picker input-daterange">
+											<input name="handleBeginTime"
+											class="form-control ng-pristine ng-untouched ng-valid"
+											type="text" data-ng-model="vo.handleBeginTime"> <span
+											class="input-group-addon">到</span> <input name="handleEndTime"
+											class="form-control ng-pristine ng-untouched ng-valid"
+											type="text" data-ng-model="vo.handleEndTime">
+										</div>
 									</div>
 								</div>
 							</div>
@@ -99,8 +107,8 @@
 			</div>
 			<div class="table-toolbar">
 				<div class="btn-group">
-					<a href="#/user_add.html" class="btn blue"> <i
-						class="fa fa-plus"></i> 新增用户
+					<a href="#/permit_add.html" class="btn blue"> <i
+						class="fa fa-plus"></i> 提交审核
 					</a>
 				</div>
 			</div>
@@ -111,12 +119,12 @@
 						<tr class="heading">
 							<th>序号</th>
 							<th>编号</th>
-							<th>姓名</th>
-							<th>性别</th>
-							<th>年龄</th>
-							<th>电话</th>
-							<th>角色</th>
-							<th>状态</th>
+							<th>标题</th>
+							<th>提交人</th>
+							<th>提交时间</th>
+							<th>处理人</th>
+							<th>处理时间</th>
+							<th>审核状态</th>
 							<th>操作</th>
 						</tr>
 					</thead>
@@ -124,35 +132,24 @@
 						<tr class="odd gradeX" ng-repeat="item in vm.items">
 							<td><span
 								ng-bind="$index+1+((vm.pages.index-1)*vm.pages.itemsPerPage)"></span></td>
-							<td><span ng-bind="item.userId"></span></td>
-							<td><a ng-href="#/user_detail/{{item.userId}}"> <span
-									ng-bind="item.userName"></span>
+							<td><span ng-bind="item.permitId"></span></td>
+							<td><a ng-href="#/permit_detail/{{item.permitId}}"> <span
+									ng-bind="item.permitTitle"></span>
 							</a></td>
-							<td><span ng-show="item.userSex == 1">帅哥</span> <span
-								ng-show="item.userSex == 2">美女</span></td>
-							<td><span ng-bind="item.userAge"></span>
+							<td><span ng-bind="item.submitUserName"></span></td>
+							<td><span ng-bind="item.submitTime | date :'yyyy-MM-dd hh:mm'"></span></td>
+							<td><span ng-bind="item.handleUserName"></span></td>
+							<td><span ng-bind="item.handleTime | date :'yyyy-MM-dd hh:mm'"></span></td>
+							<td><span class="label label-sm label-success" ng-show="item.permitState == 1">待审核</span> 
+							    <span class="label label-sm label-primary" ng-show="item.permitState == 2">已通过</span>
+								<span class="label label-sm label-danger" ng-show="item.permitState == 3">未通过</span>
 							</td>
-							<td><span ng-bind="item.userTel"></span>
-							</td>
-							<td><span class="label label-sm label-primary" ng-show="item.userPower == 1">员工</span><span
-								class="label label-sm label-warning" ng-show="item.userPower == 2">部门主管</span>
-								<span class="label label-sm label-danger" ng-show="item.userPower == 3">管理员</span></td>
-							<td><span class="label label-sm label-success" ng-show="item.state == 1">启用</span> <span
-								class="label label-sm label-default" ng-show="item.state == 2">停用</span>
-							</td>
-							<td><a ng-href="#/user_detail/{{item.userId}}"
+							<td><a ng-href="#/permit_detail/{{item.permitId}}"
 								class="btn btn-xs default btn-editable"> <i
 									class="fa fa-file-text-o"></i> 详情
-							</a> <a href="#/user_edit/{{item.userId}}"
-								class="btn btn-xs default btn-editable"
-								> <i class="fa fa-edit"></i>
-									编辑
-							</a><span ng-show="userInfo.userPower==3"><a ng-show="item.state==1"
-								class="btn btn-xs default btn-editable" ng-click="disabled(item.userId)"> <i
-									class="fa fa-lock"></i> 停用
-							</a><a ng-show="item.state==2" class="btn btn-xs default btn-editable" 
-							ng-click="enabled(item.userId)"> <i
-									class="fa fa-unlock"></i> 启用
+							</a> <span><a ng-show="item.permitState==1"
+								class="btn btn-xs default btn-editable" ng-click=""> <i
+									class="fa fa-edit"></i> 审核
 							</a></span></td>
 						</tr>
 					</tbody>
@@ -163,7 +160,7 @@
 				total-items="vm.pages.totalResult" ng-model="vm.pages.index"
 				class="pagination-sm pull-right" previous-text="&lsaquo;"
 				next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"
-				ng-change="getUserList()"></pagination>
+				ng-change="getPermitList()"></pagination>
 			<h5>每页 {{vm.pages.itemsPerPage}}条 | 共 {{vm.pages.totalResult}}
 				条记录 | 当前第 {{vm.pages.index}} 页 | 共 {{vm.pages.totalPage}} 页</h5>
 		</div>

@@ -71,5 +71,9 @@ public class UserService{
 			return null;
 		}
 	}
+	
+	public User queryUserByName(String userName) {
+		return userBL.queryUserByName(userName);
+	}
 
 }

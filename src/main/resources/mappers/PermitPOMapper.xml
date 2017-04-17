@@ -27,6 +27,10 @@
 	    <if test="submitUser != null"> and SubmitUser = #{submitUser,jdbcType=INTEGER} </if>
 	    <if test="permitState != null">and PermitState = #{permitState,jdbcType=INTEGER} </if>
 		<if test="handleUser != null">and HandleUser = #{handleUser,jdbcType=INTEGER}</if>
+		<if test="submitBeginTime!=null">and SubmitTime <![CDATA[>=]]>#{submitBeginTime,jdbcType=TIMESTAMP}</if>
+        <if test="submitEndTime!=null">and SubmitTime <![CDATA[<=]]>#{submitEndTime,jdbcType=TIMESTAMP}</if>
+        <if test="handleBeginTime!=null">and HandleTime <![CDATA[>=]]>#{handleBeginTime,jdbcType=TIMESTAMP}</if>
+        <if test="handleEndTime!=null">and HandleTime <![CDATA[<=]]>#{handleEndTime,jdbcType=TIMESTAMP}</if>
 	</where>
 	  order by SubmitTime desc
   </select>

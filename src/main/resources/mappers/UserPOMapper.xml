@@ -27,6 +27,13 @@
     from  users
   </select>
   
+  <select id="queryUserByName" resultMap="BaseResultMap">
+    select 
+        <include refid="Base_Column_List" />
+    from  users
+    where UserName=#{userName,jdbcType=VARCHAR}
+  </select>
+  
 
   <!-- 获取用户信息列表 -->
   <select id="findUserList" resultMap="BaseResultMap" parameterType="java.util.Map" >

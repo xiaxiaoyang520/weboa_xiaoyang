@@ -78,4 +78,10 @@ public interface UserPOMapper {
 	 * @return List<User>
 	 */
 	List<User> findAllUserList();
+	
+	/** 
+	 * 通过用户名查询用户信息
+	 * @param userName
+	 */
+	User queryUserByName(@Param("userName") String userName);
 }

@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.hbpu.weboa.service.dao.PermitPOMapper;
 import com.hbpu.weboa.service.domain.Permit;
+import com.hbpu.weboa.service.utils.DateHelper;
 import com.hbpu.weboa.service.utils.PageList;
 import com.hbpu.weboa.service.utils.Pager;
 import com.hbpu.weboa.service.utils.PagerCondition;
@@ -38,6 +39,22 @@ public class PermitBL {
 		paramMap.put("submitUser", permit.getSubmitUser());
 		paramMap.put("handleUser", permit.getHandleUser());
 		paramMap.put("permitState", permit.getPermitState());
+		Date submitBeginTime = permit.getSubmitBeginTime();
+		if (submitBeginTime != null) {
+			paramMap.put("submitBeginTime", DateHelper.formatBeginTime(submitBeginTime));
+		}
+		Date submitEndTime = permit.getSubmitEndTime();
+		if (submitEndTime != null) {
+			paramMap.put("submitEndTime", DateHelper.formatEndTime(submitEndTime));
+		}
+		Date handleBeginTime = permit.getHandleBeginTime();
+		if (handleBeginTime != null) {
+			paramMap.put("handleBeginTime", DateHelper.formatBeginTime(handleBeginTime));
+		}
+		Date handleEndTime = permit.getHandleEndTime();
+		if (handleEndTime != null) {
+			paramMap.put("handleEndTime", DateHelper.formatEndTime(handleEndTime));
+		}
 		paramMap.put("offset", pagerCondition.startRow());
 		paramMap.put("limitnum", pagerCondition.getPageSize());
 		List<Permit> permits = permitPOMapper.findPermitList(paramMap);

@@ -12,6 +12,8 @@ MetronicApp.controller("permitController",
 			$rootScope.settings.layout.pageSidebarClosed = false;
 			
 			$scope.userInfo = getUserInfo.userInfo();
+			
+			$scope.permitStateList = [{code:1,name:'待审核'},{code:2,name:'已通过'},{code:3,name:'未通过'}];
 
 			var vm = $scope.vm = {};
 			vm.pages = {
@@ -25,7 +27,7 @@ MetronicApp.controller("permitController",
 			$scope.getPermitList = function(){
 				//显示加载中……
 				pagedataLoading.loading();
-				$http.post("notice/findNoticeList/"+$scope.vm.pages.index,$scope.vo).success(function(data){
+				$http.post("permit/findPermitList/"+$scope.vm.pages.index,$scope.vo).success(function(data){
 					if(data.result==="success"){
 						$scope.vm.items = data.datas.dataList;
 						$scope.vm.pages.totalResult = data.datas.pager.recordCount;
@@ -35,7 +37,24 @@ MetronicApp.controller("permitController",
 					pagedataLoading.unloading();
 				})
 			}
-			$scope.getNoticeList();
+			$scope.getPermitList();
+			
+			/* ***********************查询功能********************************** */
+			//查询按钮
+			$scope.searchClick = function() {
+
+				$scope.vm.pages = {
+					itemsPerPage : 5,
+					index : 1,
+					totalResult : 0,
+					totalPage : 0
+				};
+				$scope.getPermitList();
+			};
+			//清空按钮
+			$scope.resetClick = function() {
+				$scope.vo = {};
+			};
 
 		});
 }]);

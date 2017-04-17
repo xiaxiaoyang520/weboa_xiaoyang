@@ -69,6 +69,26 @@ public class Permit implements Serializable{
 	 * 处理备注
 	 */
 	private String handleRemark;
+	
+	/**
+	 * 按提交时间搜索的开始时间
+	 */
+	private Date submitBeginTime;
+	
+	/**
+	 * 按提交时间搜索的结束时间
+	 */
+	private Date submitEndTime;
+	
+	/**
+	 * 按处理时间搜索的开始时间
+	 */
+	private Date handleBeginTime;
+	
+	/**
+	 * 按处理时间搜索的结束时间
+	 */
+	private Date handleEndTime;
 
 	public Integer getPermitId() {
 		return permitId;
@@ -158,5 +178,38 @@ public class Permit implements Serializable{
 		this.handleUserName = handleUserName;
 	}
 
+	public Date getSubmitBeginTime() {
+		return submitBeginTime;
+	}
+
+	public void setSubmitBeginTime(Date submitBeginTime) {
+		this.submitBeginTime = submitBeginTime;
+	}
+
+	public Date getSubmitEndTime() {
+		return submitEndTime;
+	}
+
+	public void setSubmitEndTime(Date submitEndTime) {
+		this.submitEndTime = submitEndTime;
+	}
+
+	public Date getHandleBeginTime() {
+		return handleBeginTime;
+	}
+
+	public void setHandleBeginTime(Date handleBeginTime) {
+		this.handleBeginTime = handleBeginTime;
+	}
+
+	public Date getHandleEndTime() {
+		return handleEndTime;
+	}
+
+	public void setHandleEndTime(Date handleEndTime) {
+		this.handleEndTime = handleEndTime;
+	}
+
+	
 	
 }

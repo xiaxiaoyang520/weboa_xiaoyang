@@ -6,6 +6,7 @@ package com.hbpu.weboa.web.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,6 +40,24 @@ public class PermitController {
 	public BaseResult findPermitList(@PathVariable("currentPage") Integer currentPage,
 			@RequestBody Permit permit){
 		PagerCondition pagerCondition = new PagerCondition(currentPage, 5);
+		String submitUserName = permit.getSubmitUserName();
+		if (!StringUtils.isEmpty(submitUserName)) {
+			User user = userService.queryUserByName(submitUserName);
+			if (user != null) {
+				permit.setSubmitUser(user.getUserId());
+			} else {
+				permit.setSubmitUser(-1);
+			}
+		}
+		String handleUserName = permit.getHandleUserName();
+		if (!StringUtils.isEmpty(handleUserName)) {
+			User user = userService.queryUserByName(handleUserName);
+			if (user != null) {
+				permit.setHandleUser(user.getUserId());
+			} else {
+				permit.setHandleUser(-1);
+			}
+		}
 		PageList<Permit> permitPage = permitService.findPermitList(permit, pagerCondition);
 		List<Permit> permitList = permitPage.getDataList();
 		for (Permit permitInfo : permitList) {
