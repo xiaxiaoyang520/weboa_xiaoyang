@@ -13,32 +13,15 @@
 <div class="row">
 				<div class="col-md-12">
 					<ul class="timeline">
-						<li class="timeline-grey" ng-show="item.noticeType==1" data-ng-repeat="item in vm.items">
+						<li class="timeline-blue" data-ng-repeat="item in vm.items">
 							<div class="timeline-time">
 								<span class="date" ng-bind="item.createTime | date:'yyyy-MM-dd'"></span>
 								<span class="time" ng-bind="item.createTime | date:'hh:mm'"></span>
 							</div>
-							<div class="timeline-icon">
+							<div ng-show="item.noticeType==1" class="timeline-icon">
 								<i class="fa fa-bullhorn"></i>
 							</div>
-							<div class="timeline-body" >
-								<h2>{{item.noticeTitle}}</h2>
-								<div class="timeline-content">
-									 {{item.noticeContext}}
-								</div>
-								<div class="timeline-footer">
-									<a href="#/notice_detail/{{item.noticeId}}" class="nav-link pull-right">
-									更多 <i class="m-icon-swapright m-icon-white"></i>
-									</a>
-								</div>
-							</div>
-						</li>
-						<li class="timeline-blue" ng-show="item.noticeType==2" data-ng-repeat="item in vm.items">
-							<div class="timeline-time">
-								<span class="date" ng-bind="item.createTime | date:'yyyy-MM-dd'"></span>
-								<span class="time" ng-bind="item.createTime | date:'hh:mm'"></span>
-							</div>
-							<div class="timeline-icon">
+							<div ng-show="item.noticeType==2" class="timeline-icon">
 								<i class="fa fa-calendar-o"></i>
 							</div>
 							<div class="timeline-body">
