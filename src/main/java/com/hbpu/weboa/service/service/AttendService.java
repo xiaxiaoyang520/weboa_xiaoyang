@@ -30,16 +30,9 @@ public class AttendService{
 		return attendBL.findAttendList(attend, pagerCondition);
 	}
 
-	public Integer addAttend(Attend attend) {
-		AssertUtils.notNull(attend, "插入考勤对象为空");
-		return attendBL.addAttend(attend);
-	}
-
 	public void addRemark(Attend attend) {
 		AssertUtils.notNull(attend.getAttendUser(), "用户id为空");
 		AssertUtils.notNull(attend.getAttendRemark(), "添加备注信息为空");
-		AssertUtils.notNull(attend.getAttendDate(), "日期为空");
 		attendBL.addRemark(attend);
-		
 	}
 }

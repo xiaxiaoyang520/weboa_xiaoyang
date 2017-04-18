@@ -65,14 +65,12 @@
   <!--  给考勤信息添加备注信息 -->
  <update id="addRemark" parameterType="java.util.Map" >
     update attends
-    <set >
-      <if test="attendRemark != null" >AttendRemark = #{attendRemark,jdbcType=VARCHAR},</if>
-    </set>
-   <where>
-	    <if test="attendUser != null"> and AttendUser = #{attendUser,jdbcType=INTEGER} </if>
-	    <if test="startTime != null">and StartTime<![CDATA[ >=]]> #{startTime,jdbcType=TIMESTAMP} </if>
-	    <if test="endTime != null">and EndTime<![CDATA[ <=]]> #{endTime,jdbcType=TIMESTAMP} </if>
-	</where>
+    set
+      AttendRemark=#{attendRemark,jdbcType=VARCHAR},
+      RemarkUser=#{remarkUser,jdbcType=INTEGER},
+      RemarkTime=NOW()
+    where
+      AttendId=#{attendId,jdbcType=INTEGER}
   </update>
   
 </mapper>

@@ -55,8 +55,6 @@ public class AttendBL {
 	public void addRemark(Attend attend){
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("attendUser", attend.getAttendUser());
-		paramMap.put("StartTime", DateHelper.formatBeginTime(attend.getAttendDate()));
-		paramMap.put("EndTime", DateHelper.formatEndTime(attend.getAttendDate()));
 		paramMap.put("attendRemark", attend.getAttendRemark());
 		attendPOMapper.addRemark(paramMap);
 	}

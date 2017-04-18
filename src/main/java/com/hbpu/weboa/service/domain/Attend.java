@@ -29,6 +29,11 @@ public class Attend implements Serializable{
 	private Integer attendUser;
 	
 	/**
+	 * 用户姓名
+	 */
+	private String attendUserName;
+	
+	/**
 	 * 考勤日期
 	 */
 	private Date attendDate;
@@ -94,6 +99,14 @@ public class Attend implements Serializable{
 
 	public void setAttendRemark(String attendRemark) {
 		this.attendRemark = attendRemark;
+	}
+
+	public String getAttendUserName() {
+		return attendUserName;
+	}
+
+	public void setAttendUserName(String attendUserName) {
+		this.attendUserName = attendUserName;
 	}
 	
 	
