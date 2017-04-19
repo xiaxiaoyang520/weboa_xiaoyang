@@ -21,6 +21,7 @@ import com.hbpu.weboa.service.utils.PageList;
 import com.hbpu.weboa.service.utils.PagerCondition;
 import com.hbpu.weboa.web.pagemodel.BaseResult;
 import com.hbpu.weboa.web.pagemodel.PagesResult;
+import com.hbpu.weboa.web.pagemodel.ROResult;
 
 /**  
  * 审核控制器
@@ -90,7 +91,7 @@ public class PermitController {
 			User handleUser  = userService.getUserById(handleUserId);
 			permit.setHandleUserName(handleUser.getUserName());
 		}
-		return BaseResult.getSuccessResult();
+		return new ROResult<Permit>(permit);
 	}
 	
 }

@@ -103,13 +103,13 @@ public class PrivilegeController {
         
         PrivilegeIndexVO privilegeVO = new PrivilegeIndexVO();
         privilegeVO.setIcon("fa fa-ioxhost");
-        privilegeVO.setPrivilegeCode("privilege");
+        privilegeVO.setPrivilegeCode("auth");
         privilegeVO.setPrivilegeName("授权管理");
         privilegeVO.setPrivilegeType("Menu");
         privilegeVO.setSequence(null);
         privilegeVO.setSonIndex(null);
         privilegeVO.setTitle("授权管理");
-        privilegeVO.setUrl("#/attend_list.html");
+        privilegeVO.setUrl("#/auth_list.html");
         
         PrivilegeIndexVO noticeVO = new PrivilegeIndexVO();
         noticeVO.setIcon("fa fa-bullhorn");

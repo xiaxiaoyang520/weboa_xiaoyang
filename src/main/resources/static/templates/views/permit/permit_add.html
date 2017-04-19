@@ -7,12 +7,12 @@
 					<div class="portlet box blue">
 						<div class="portlet-title">
 							<div class="caption">
-								<i class="fa fa-plus"></i>发布公告/通知
+								<i class="fa fa-plus"></i>提交审核
 							</div>
 							<div class="tools">
 								<a href="javascript:;" class="collapse">
 								</a>
-								<a href="#/notice_add.html" class="reload">
+								<a href="#/permit_add.html" class="reload">
 								</a>
 							</div>
 						</div>
@@ -22,34 +22,19 @@
 						novalidate="novalidate">
 					<div class="form-body" >
 						<div class="form-group">
-								<label class="col-md-4 control-label">类型：<span class="required"> * </span></label>
-							    <div class="col-md-4">
-									<div class="radio-list">
-										<label class="radio-inline" ng-repeat="item in noticeTypeList">
-											<div class="radio">
-												<span ng-class="{'checked':vo.noticeType == item.code}"> 
-													<input type="radio" value="{{item.code}}" 
-												       name="noticeType" ng-model="vo.noticeType">
-												</span>
-											</div> {{item.name}}
-										</label>
-									</div>
-								</div>
-							</div>
-						<div class="form-group">
 							<label class="col-md-4 control-label">标题：<span class="required">*</span></label>
 							<div class="col-md-4">
-								<input type="text" required name="noticeTitle"
+								<input type="text" required name="permitTitle"
 									class="form-control data-ng-pristine data-ng-untouched data-ng-valid"
-									placeholder="请输入标题" data-ng-model="vo.noticeTitle">
+									placeholder="请输入审核标题" data-ng-model="vo.permitTitle">
 							</div>
 						</div>
 						
 						<div class="form-group">
 							<label class="col-md-4 control-label">内容：<span class="required">*</span></label>
 							<div class="col-md-4">
-								<textarea class="form-control" cols="20" rows="3" placeholder="请输入通知/公告内容" required="required"
-												maxlength="500" ng-model="vo.noticeContext"></textarea>
+								<textarea class="form-control" cols="20" rows="3" placeholder="请输入审核内容" required="required"
+												maxlength="500" ng-model="vo.permitContext"></textarea>
 							</div>
 						</div>
 						
@@ -57,11 +42,11 @@
 					<div class="form-actions">
 							<div class="row">
 								<div class="col-md-offset-4 col-md-4">
-									<button class="btn green" data-ng-click="noticeSubmit()"
+									<button class="btn green" data-ng-click="permitSubmit()"
 									data-ejp-no-more-submit data-ng-disabled="addForm.$invalid">
 										<i class="fa fa fa-check"></i> 发布
 									</button>
-									<a href="#/notice_list.html" class="btn default"><i class="fa fa-chevron-circle-left"></i> 返回</a>
+									<a href="#/permit_list.html" class="btn default"><i class="fa fa-chevron-circle-left"></i> 返回</a>
 								</div>
 							</div>
 						</div>
@@ -72,6 +57,9 @@
 							</div>
 							<!-- END FORM-->
 						</div>
+					</div>
+				</div>
+			</div>
 	<!-- END PAGE CONTENT-->
 <script>
  $("#userBirth").datetimepicker({
