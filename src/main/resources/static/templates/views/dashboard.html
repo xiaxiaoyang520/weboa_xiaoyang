@@ -53,10 +53,10 @@
                 </div>
                 <div class="details">
                     <div class="number">
-                        <span ng-bind="bizUser.newUserCount"></span>
+                        <span ng-bind="bizUser.newUserCount">5</span>
                     </div>
                     <div class="desc">
-                                                               新会员
+                                                              最近入职
                     </div>
                 </div>
                 <a class="more" ng-href="{{targetBizUserUrl}}">
@@ -67,14 +67,14 @@
         <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
             <div class="dashboard-stat red-intense">
                 <div class="visual">
-                    <i class="fa fa-users"></i>
+                    <i class="fa fa-user"></i>
                 </div>
                 <div class="details">
                     <div class="number">
-                         <span ng-bind="bizUser.allUserCount"></span>
+                         <span ng-bind="bizUser.allUserCount">888</span>
                     </div>
                     <div class="desc">
-                                                             总会员
+                                                           用户
                     </div>
                 </div>
                 <a class="more" ng-href="{{targetBizUserUrl}}">
@@ -85,14 +85,14 @@
         <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
             <div class="dashboard-stat green-haze">
                 <div class="visual">
-                    <i class="fa fa-shopping-cart"></i>
+                    <i class="fa fa-inbox"></i>
                 </div>
                 <div class="details">
                     <div class="number">
-                       <span ng-bind="order.newOrders"></span>
+                       <span ng-bind="order.newOrders">30</span>
                     </div>
                     <div class="desc">
-                                                             酒批新订单
+                                                            职位
                     </div>
                 </div>
                 <a class="more" ng-href="{{targetOrderUrl}}">
@@ -103,14 +103,14 @@
         <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
             <div class="dashboard-stat purple-plum">
                 <div class="visual">
-                    <i class="fa fa-cny"></i>
+                    <i class="fa fa-users"></i>
                 </div>
-                <div class="details">
+                  <div class="details">
                     <div class="number">
-                        +<span ng-bind="(order.totalAmount || 0.00) | currency:''"></span>
+                       <span ng-bind="order.newOrders">8</span>
                     </div>
                     <div class="desc">
-                                                        酒批总销售额
+                                                            部门
                     </div>
                 </div>
                 <a class="more" ng-href="{{targetOrderUrl}}">
@@ -129,7 +129,7 @@
             <div class="portlet light grey-cararra ">
                 <div class="portlet-title">
                     <div class="caption">
-                        <i class="icon-user"></i>会员情况
+                        <i class="fa fa-bullhorn"></i>通知信息
                     </div>
                 </div>
                 <div class="portlet-body">
@@ -151,7 +151,7 @@
             <div class="portlet light grey-cararra">
                 <div class="portlet-title">
                     <div class="caption">
-                        <i class="fa fa-reorder"></i> 酒批订单情况
+                        <i class="fa fa-calendar-o"></i> 公告信息
                     </div>
                 </div>
                 <div class="portlet-body">
