@@ -105,7 +105,7 @@
 					</div>
 				</form>
 			</div>
-			<div class="table-toolbar">
+			<div class="table-toolbar" ng-show="userInfo.userPower==1">
 				<div class="btn-group">
 					<a href="#/permit_add.html" class="btn blue"> <i
 						class="fa fa-plus"></i> 提交审核
@@ -147,7 +147,7 @@
 							<td><a ng-href="#/permit_detail/{{item.permitId}}"
 								class="btn btn-xs default btn-editable"> <i
 									class="fa fa-file-text-o"></i> 详情
-							</a> <span><a ng-show="item.permitState==1"
+							</a> <span><a ng-show="item.permitState==1 && userInfo.userPower!=1"
 								class="btn btn-xs default btn-editable" ng-click="checkPermit(item)"> <i
 									class="fa fa-edit"></i> 审核
 							</a></span></td>

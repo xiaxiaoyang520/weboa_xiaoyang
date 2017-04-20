@@ -164,11 +164,21 @@ MetronicApp.controller('HeaderController', [ '$scope', '$http', '$log','$locatio
 		'modalService','$modal','getUserInfo', function($scope, $http, $log,$location, modalService,$modal,getUserInfo) {
 			$scope.$on('$includeContentLoaded', function() {
 				Layout.initHeader(); // init header
+				$scope.vo = {};
 				$scope.logout=function(){
 					window.location = "login.html";
 				};
 				var userInfo = $scope.userInfo = getUserInfo.userInfo();
 				if(userInfo){
+					if(userInfo.userPower==1){
+						$scope.vo.userRole='员工';
+					}
+					if(userInfo.userPower==2){
+						$scope.vo.userRole='部门主管';
+					}
+					if(userInfo.userPower==3){
+						$scope.vo.userRole='管理员';
+					}
 				$scope.userInfo={trueName:userInfo.userName}
 				$scope.open = function() {
 					modalService.openModal({

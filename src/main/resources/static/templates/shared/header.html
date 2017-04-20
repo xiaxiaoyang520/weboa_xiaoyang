@@ -45,9 +45,7 @@
             </li>
             <li class="dropdown dropdown-role">
             	角色：
-            	    <span ng-if="userInfo.userPower == 1 ">员工</span>
-            	    <span ng-if="userInfo.userPower == 2 ">部门主管</span>
-            	    <span ng-if="userInfo.userPower == 3 ">管理员</span>
+            	    <span ng-bind="vo.userRole">员工</span>
             </li>
            <!--  END USER LOGIN DROPDOWN -->
         </ul>

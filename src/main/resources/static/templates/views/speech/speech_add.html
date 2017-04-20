@@ -17,7 +17,7 @@
 						novalidate="novalidate">
 					<div class="form-body">
 						<div class="form-group">
-							<label class="col-md-2 control-label">标题：</label>
+							<label class="col-md-2 control-label">标题：<span class="required">*</span></label>
 							<div class="col-md-4">
 								<input type="text"name="title"
 									class="form-control data-ng-pristine data-ng-untouched data-ng-valid"
@@ -27,7 +27,7 @@
 						<div class="form-group">
 							<label class="col-md-2 control-label">内容：<span class="required">*</span></label>
 							<div class="col-md-4">
-								<textarea class="form-control" cols="20" rows="15" required="required"
+								<textarea class="form-control" cols="20" rows="3" required="required"
 												maxlength="500" ng-model="vo.context"></textarea>
 							</div>
 						</div>
