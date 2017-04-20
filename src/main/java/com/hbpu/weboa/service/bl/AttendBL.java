@@ -34,8 +34,8 @@ public class AttendBL {
 	public PageList<Attend> findAttendList(Attend attend, PagerCondition pagerCondition) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("attendUser", attend.getAttendUser());
-		paramMap.put("StartTime", DateHelper.formatBeginTime(attend.getAttendDate()));
-		paramMap.put("EndTime", DateHelper.formatEndTime(attend.getAttendDate()));
+		paramMap.put("attendStartDate", DateHelper.formatBeginTime(attend.getAttendStartDate()));
+		paramMap.put("attendEndDate", DateHelper.formatEndTime(attend.getAttendEndDate()));
 		paramMap.put("offset", pagerCondition.startRow());
 		paramMap.put("limitnum", pagerCondition.getPageSize());
 		List<Attend> attends = attendPOMapper.findAttendList(paramMap);
@@ -54,7 +54,7 @@ public class AttendBL {
 	
 	public void addRemark(Attend attend){
 		Map<String, Object> paramMap = new HashMap<String, Object>();
-		paramMap.put("attendUser", attend.getAttendUser());
+		paramMap.put("attendId", attend.getAttendId());
 		paramMap.put("attendRemark", attend.getAttendRemark());
 		attendPOMapper.addRemark(paramMap);
 	}

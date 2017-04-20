@@ -221,22 +221,22 @@ MetronicApp.controller('HeaderController', [ '$scope', '$http', '$log','$locatio
 			$scope.result={};
 			
 			$scope.upDatePassword = function(obj) {
-				if(obj.newPass!=obj.newPass1){
+				if(obj.newPwd!=obj.newPwd1){
 					ejpAlert.show("两次密码不一致！");
 					return;
 				}
 				
-				if(obj.newPass.length < 6){
+				if(obj.newPwd.length < 6){
 					ejpAlert.show("密码至少为6位字符！");
 					return;
 				}
 			
 				var dto={
-					'oldPass':obj.oldPass,
-					'newPass':obj.newPass,
-					'identity':identity
+					'oldPwd':obj.oldPwd,
+					'newPwd':obj.newPwd,
+					'userId':identity.userId
 				};
-				$http.post('changePasswordByOldPassword.action',dto).success(
+				$http.post('user/changePasswordByOldPassword',dto).success(
 					function(data) {
 						if(data.result=='success'){
 							ejpAlert.show("修改成功！");

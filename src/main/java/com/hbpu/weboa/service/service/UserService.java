@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.hbpu.weboa.service.bl.UserBL;
+import com.hbpu.weboa.service.domain.ChangPwd;
 import com.hbpu.weboa.service.domain.User;
 import com.hbpu.weboa.service.utils.AssertUtils;
 import com.hbpu.weboa.service.utils.PageList;
@@ -74,6 +75,14 @@ public class UserService{
 	
 	public User queryUserByName(String userName) {
 		return userBL.queryUserByName(userName);
+	}
+	
+	public void changePwd(ChangPwd changPwd){
+		AssertUtils.notNull(changPwd, "修改密码模型为空");
+		AssertUtils.notNull(changPwd.getUserId(), "修改密码用户id为空");
+		AssertUtils.hasText(changPwd.getOldPwd(), "修改密码旧密码为空");
+		AssertUtils.hasText(changPwd.getNewPwd(), "修改密码新密码为空");
+		userBL.changePwd(changPwd);
 	}
 
 }

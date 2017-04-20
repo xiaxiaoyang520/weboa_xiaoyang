@@ -150,6 +150,17 @@
     where UserId = #{userId,jdbcType=INTEGER}
   </update>
   
+  <select id="checkPwd" resultMap="BaseResultMap" >
+    select 
+        <include refid="Base_Column_List" />
+    from
+        users
+    where
+      UserId = #{userId,jdbcType=INTEGER}
+    and 
+      UserPassword = #{oldPwd}
+  </select>
+  
   <!-- 删除用户信息 -->
   <delete id="deleteUser" parameterType="java.lang.Integer" >
   	delete from users

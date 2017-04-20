@@ -1,0 +1,85 @@
+<div>
+	<div class="row">
+		<div class="col-md-12">
+			<div class="portlet light bordered">
+				<div class="portlet-title">
+					<div class="caption font-green-sharp">
+						<i class="icon-equalizer font-green-sharp"></i> <span
+							class="caption-subject bold uppercase">登录用户信息</span>
+					</div>
+				</div>
+				<div class="portlet-body form">
+					<!-- BEGIN FORM-->
+					<form name="Form" class="form-horizontal" novalidate="novalidate">
+						<div class="form-body">
+						   <div class="form-group">
+									<label class="control-label col-md-2">编号：</label>
+									<div class="col-md-9">
+										<p class="form-control-static" ng-bind="userMessage.userId"></p>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="control-label col-md-2">姓名：</label>
+									<div class="col-md-9">
+										<p class="form-control-static" ng-bind="userMessage.userName"></p>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="control-label col-md-2">性别：</label>
+									<div class="col-md-9">
+										<p  class="form-control-static"
+											ng-show="userMessage.userSex == 1">帅哥</p>
+											<p  class="form-control-static"
+											ng-show="userMessage.userSex == 2">美女</p>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="control-label col-md-2">年龄：</label>
+									<div class="col-md-9">
+										<p class="form-control-static"
+											ng-bind="userMessage.userAge"></p>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="control-label col-md-2">电话：</label>
+									<div class="col-md-9">
+										<p class="form-control-static"
+											ng-bind="userMessage.userTel"></p>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="control-label col-md-2">身份证号：</label>
+									<div class="col-md-9">
+										<p class="form-control-static"
+											ng-bind="userMessage.idCardNO"></p>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="control-label col-md-2">邮箱：</label>
+									<div class="col-md-9">
+										<p class="form-control-static"
+											ng-bind="userMessage.userEmail"></p>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="control-label col-md-2">住址：</label>
+									<div class="col-md-9">
+										<p class="form-control-static"
+											ng-bind="userMessage.userAddr"></p>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="control-label col-md-2">职位：</label>
+									<div class="col-md-9">
+										<p class="form-control-static"
+											ng-bind="userMessage.postName"></p>
+									</div>
+								</div>
+						</div>
+				</form>
+			</div>
+				<!-- END FORM-->
+			</div>
+		</div>
+	</div>
+</div>

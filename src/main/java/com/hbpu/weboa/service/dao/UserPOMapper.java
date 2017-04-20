@@ -84,4 +84,6 @@ public interface UserPOMapper {
 	 * @param userName
 	 */
 	User queryUserByName(@Param("userName") String userName);
+	
+	User checkPwd(@Param("userId") Integer userId, @Param("oldPwd") String oldPwd);
 }

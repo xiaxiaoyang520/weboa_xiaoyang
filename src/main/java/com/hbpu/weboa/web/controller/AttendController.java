@@ -49,8 +49,9 @@ public class AttendController {
 	}
 	
 	@RequestMapping(value="/templates/attend/addAttendRemark",method=RequestMethod.POST)
-	public BaseResult addUser(@RequestBody Attend attend){
+	public BaseResult addAttendRemark(@RequestBody Attend attend){
 		attendService.addRemark(attend);
 		return BaseResult.getSuccessResult();
 	}
+	
 }

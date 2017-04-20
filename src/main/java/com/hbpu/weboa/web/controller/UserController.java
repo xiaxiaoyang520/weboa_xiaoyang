@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.hbpu.weboa.api.user.converter.UserConverter;
 import com.hbpu.weboa.api.user.model.UserRO;
 import com.hbpu.weboa.api.user.model.UserVO;
+import com.hbpu.weboa.service.domain.ChangPwd;
 import com.hbpu.weboa.service.domain.Post;
 import com.hbpu.weboa.service.domain.User;
 import com.hbpu.weboa.service.service.PostService;
@@ -68,6 +69,21 @@ public class UserController {
 	
 	@RequestMapping(value="/templates/user/updateUser",method=RequestMethod.POST)
 	public BaseResult updateUser(@RequestBody User user){
+		userService.updateUser(user);
+		return BaseResult.getSuccessResult();
+	}
+	
+	@RequestMapping(value="/templates/user/changePasswordByOldPassword",method=RequestMethod.POST)
+	public BaseResult changePasswordByOldPassword(@RequestBody ChangPwd changPwd){
+		userService.changePwd(changPwd);
+		return BaseResult.getSuccessResult();
+	}
+	
+	@RequestMapping(value="/templates/user/resetPassword/{userId}/{newPwd}",method=RequestMethod.POST)
+	public BaseResult resetPassword(@PathVariable("userId") Integer userId, @PathVariable("newPwd") String newPwd){
+		User user = new User();
+		user.setUserPassword(newPwd);
+		user.setUserId(userId);
 		userService.updateUser(user);
 		return BaseResult.getSuccessResult();
 	}

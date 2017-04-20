@@ -1,6 +1,6 @@
 'use strict';
 
-MetronicApp.controller('DashboardController', function($rootScope, $scope, $http, $timeout,ejpAlert,$state,UserInfoService) {
+MetronicApp.controller('DashboardController', function($rootScope, $scope, $http, $timeout,ejpAlert,$state,getUserInfo) {
 	
 	$scope.$on("switchRole_broadcast", function(event,arg){
 		if(arg.dashboard){
@@ -104,7 +104,7 @@ MetronicApp.controller('DashboardController', function($rootScope, $scope, $http
 	 * 获取视图中的数据
 	 */
 	$scope.renderView = function(){
-		$scope.identity = UserInfoService.userInfo();//刷新用户信息
+		$scope.identity = getUserInfo.userInfo();//刷新用户信息
 	    if($scope.identity.isCityAdmin){
 			$scope.targetOrderUrl = "#/cityadmin_order_list.html";
 			$scope.targetBizUserUrl = "#/cityAdmin_bizUser_list.html";
@@ -113,10 +113,10 @@ MetronicApp.controller('DashboardController', function($rootScope, $scope, $http
 			$scope.targetBizUserUrl = "#/bizUser_list.html"
 		}
 	    
-		$scope.getOrderData();
-		$scope.getJiupiOrderInfo();
-		$scope.getBizUserData();
-		$scope.findHomeAuditContentList();
+//		$scope.getOrderData();
+//		$scope.getJiupiOrderInfo();
+//		$scope.getBizUserData();
+//		$scope.findHomeAuditContentList();
 	}
 	
 	$scope.renderView();

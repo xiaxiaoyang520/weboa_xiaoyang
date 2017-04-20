@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.hbpu.weboa.service.dao.UserPOMapper;
+import com.hbpu.weboa.service.domain.ChangPwd;
 import com.hbpu.weboa.service.domain.User;
 import com.hbpu.weboa.service.utils.AssertUtils;
 import com.hbpu.weboa.service.utils.PageList;
@@ -150,5 +151,16 @@ public class UserBL {
 	
 	public User queryUserByName(String userName){
 		return userPOMapper.queryUserByName(userName);
+	}
+	
+	public void changePwd(ChangPwd changPwd){
+		String oldPwd = changPwd.getOldPwd();
+		Integer userId = changPwd.getUserId();
+		User user = userPOMapper.checkPwd(userId, oldPwd);
+		AssertUtils.notNull(user, "旧密码验证有误，无法修改");
+		User updateUser = new User();
+		updateUser.setUserPassword(changPwd.getNewPwd());
+		updateUser.setUserId(userId);
+		userPOMapper.updateUser(updateUser);
 	}
 }

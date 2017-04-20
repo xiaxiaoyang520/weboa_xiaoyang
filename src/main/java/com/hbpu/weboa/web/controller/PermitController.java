@@ -94,4 +94,18 @@ public class PermitController {
 		return new ROResult<Permit>(permit);
 	}
 	
+	@RequestMapping(value="/templates/permit/approve",method=RequestMethod.POST)
+	public BaseResult approve(@RequestBody Permit permit){
+		permit.setPermitState(2);
+		permitService.updatePermit(permit);
+		return BaseResult.getSuccessResult();
+	}
+	
+	@RequestMapping(value="/templates/permit/disApprove",method=RequestMethod.POST)
+	public BaseResult disApprove(@RequestBody Permit permit){
+		permit.setPermitState(3);
+		permitService.updatePermit(permit);
+		return BaseResult.getSuccessResult();
+	}
+	
 }

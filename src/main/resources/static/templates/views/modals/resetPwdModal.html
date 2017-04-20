@@ -1,0 +1,47 @@
+<div class="modal-header">
+	<button type="button" class="close" data-dismiss="modal"
+		aria-hidden="true" ng-click="cancel()">×</button>
+	<h4 class="modal-title">重置密码</h4>
+</div>
+<div class="modal-body">
+	<div class="portlet light">
+		<div class="portlet-body form">
+			<form action="" class="form-horizontal" name="addForm">
+				<div class="row">
+					<div class="form-group">
+						<label class="col-md-3  col-md-offset-1 control-label">新密码：<span class="required">*</span></label>
+						<div class="col-md-6">
+							<input type="password" class="form-control" placeholder="新密码" name="newPwd"  minlength=6  maxlength=18
+								ng-model="password.newPwd" required>
+						    <div class="error-messages ng-scope ng-active" data-ng-messages="addForm.newPass.$error" data-ng-if="addForm.newPass.$touched">
+							   <div class="ng-scope" data-ng-message="required">新密码必填！</div>
+							   <div class="ng-scope" data-ng-message="minlength">密码长度不能少于6位！</div>
+							   <div class="ng-scope" data-ng-message="maxlength">密码长度不能超过18位！</div>
+						    </div>
+						</div>
+					</div>
+				</div>	
+				<div class="row">
+					<div class="form-group">
+						<label class="col-md-3 col-md-offset-1 control-label">确认密码：<span class="required">*</span></label>
+						<div class="col-md-6">
+							<input type="password" class="form-control" placeholder="新密码"   name="newPassRepeat" minlength=6 maxlength=18 
+								ng-model="password.newPassRepeat"  required data-same="password.newPwd"/>
+						    <div class="error-messages ng-scope ng-active" data-ng-messages="addForm.newPassRepeat.$error" data-ng-if="addForm.newPassRepeat.$touched">
+							  <div class="ng-scope" data-ng-message="required">确认密码必填！</div>
+							  <div class="ng-scope" data-ng-message="minlength">密码长度不能少于6位！</div>
+							  <div class="ng-scope" data-ng-message="maxlength">密码长度不能超过18位！</div>
+							  <div class="ng-scope" data-ng-message="same">密码不一致！</div>
+						   </div>
+						</div>
+					</div>
+				</div>
+				<!-- <p class="col-md-3 col-md-offset-4"  style="color:red" ng-show="myForm.newPass.$dirty && (myForm.newPassRepeat.$dirty && password.newPass != password.newPassRepeat)">密码不一样</p> -->
+			</form>
+		</div>
+	</div>
+</div>
+<div class="modal-footer">
+	<button class="btn btn-primary" type="button" ng-click="ok(password)" ng-disabled="addForm.$invalid || (password.newPwd != password.newPassRepeat) ||password.newPwd.length<6">确定</button>
+	<button class="btn default" type="button" ng-click="cancel()">取消</button>
+</div>

@@ -153,7 +153,12 @@
 							</a><a ng-show="item.state==2" class="btn btn-xs default btn-editable" 
 							ng-click="enabled(item.userId)"> <i
 									class="fa fa-unlock"></i> 启用
-							</a></span></td>
+							</a></span>
+							<span ng-show="userInfo.userPower==3"><a
+								class="btn btn-xs default btn-editable" ng-click="resetPwd(item.userId)"> <i
+									class="fa fa-key"></i> 重置密码
+							</a></span>
+							</td>
 						</tr>
 					</tbody>
 				</table>

@@ -85,8 +85,42 @@ MetronicApp.controller("userController",
                     }
                 })
 			};
+			
+			//重置密码
+			$scope.resetPwd = function(id) {
+			    var modalInstance = $modal.open({
+			      templateUrl: 'views/modals/resetPwdModal.html',
+			      controller: 'ResetPasswordCtrl',
+			      size: 'md',
+				      resolve: {
+				    	 data: function () {
+				    		  return id;
+				    	  }
+				      }
+			    });
+			    modalInstance.result.then(function () {
+			    	$scope.getUserList();
+				})
+		  	};
 
 		});
+}])
+
+//重置密码
+.controller('ResetPasswordCtrl',['$modalInstance','$scope','$http','data','ejpAlert',function($modalInstance,$scope,$http,data,ejpAlert){
+	$scope.password = {};
+	$scope.ok = function (pwd) {
+		$http.post('user/resetPassword/'+data+'/'+pwd.newPwd).success(function(data){
+			if(data.result=='success'){
+				ejpAlert.show('密码重置成功');
+				$modalInstance.close();
+			}
+		})
+  	};
+
+  	$scope.cancel = function () {
+    	$modalInstance.dismiss('cancel');
+  	};
 }]);
 
 //新增用户 信息

@@ -39,6 +39,11 @@ public class Attend implements Serializable{
 	private Date attendDate;
 	
 	/**
+	 * 考勤状态
+	 */
+	private Integer attendState;
+	
+	/**
 	 * 上班时间
 	 */
 	private Date startTime;
@@ -47,6 +52,16 @@ public class Attend implements Serializable{
 	 * 下班时间
 	 */
 	private Date endTime;
+	
+	/**
+	 * 搜索起始日期
+	 */
+	private Date attendStartDate;
+	
+	/**
+	 * 搜索结束时间
+	 */
+	private Date attendEndDate;
 	
 	/**
 	 * 备注
@@ -107,6 +122,30 @@ public class Attend implements Serializable{
 
 	public void setAttendUserName(String attendUserName) {
 		this.attendUserName = attendUserName;
+	}
+
+	public Date getAttendStartDate() {
+		return attendStartDate;
+	}
+
+	public void setAttendStartDate(Date attendStartDate) {
+		this.attendStartDate = attendStartDate;
+	}
+
+	public Date getAttendEndDate() {
+		return attendEndDate;
+	}
+
+	public void setAttendEndDate(Date attendEndDate) {
+		this.attendEndDate = attendEndDate;
+	}
+
+	public Integer getAttendState() {
+		return attendState;
+	}
+
+	public void setAttendState(Integer attendState) {
+		this.attendState = attendState;
 	}
 	
 	

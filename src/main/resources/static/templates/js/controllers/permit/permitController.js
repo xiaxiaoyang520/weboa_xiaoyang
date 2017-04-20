@@ -55,6 +55,31 @@ MetronicApp.controller("permitController",
 			$scope.resetClick = function() {
 				$scope.vo = {};
 			};
+			
+			$scope.checkPermit=function(item){
+				var modalInstance = $modal.open({
+					templateUrl : 'views/modals/checkPermit.html',
+					controller : 'ModalCheckPermitCtrl',
+					size : 'lg',
+					resolve : {
+						requestResults : function() {
+							return {
+								permitTitle:item.permitTitle,
+								permitContext:item.permitContext,
+								submitUserName:item.submitUserName,
+								submitTime:item.submitTime,
+								permitId:item.permitId,
+							}
+						}
+					}
+				});
+				// 成功的回调方法 （可带参数）
+				modalInstance.result.then(function() {
+					 $scope.getPermitList();
+				}, function() {
+					//
+				});
+			}
 
 		});
 }]);
@@ -71,8 +96,6 @@ MetronicApp.controller("addPermitController",
 	                $rootScope.settings.layout.pageSidebarClosed = false;
 	                $scope.vo = {};
 	                
-//	                $scope.noticeTypeList = [{code:1,name:'通知'},{code:2,name:'公告'}];
-	                
 	                //保存
 	                var userInfo = $scope.userInfo = getUserInfo.userInfo();
 	                $scope.permitSubmit = function () {
@@ -87,7 +110,7 @@ MetronicApp.controller("addPermitController",
 	            });
 	        }]);
 
-//用户详细信息
+//审核详细信息
 MetronicApp.controller("detailPermitController",
 		['$rootScope','$scope','$http','$location','$modal','pagedataLoading','ejpAlert','$stateParams',
 		function($rootScope, $scope, $http, $location, $modal, pagedataLoading,ejpAlert,$stateParams) {
@@ -117,56 +140,43 @@ MetronicApp.controller("detailPermitController",
 				$scope.permitDetail() ;
 				
 			});
-	}]);
+	}]).controller("ModalCheckPermitCtrl", ['$modalInstance', '$rootScope', '$scope','pagedataLoading',
+			'settings', '$http', '$location','$stateParams','$log','dataHelper','getUserInfo','ejpAlert','requestResults',
+			function($modalInstance,$rootScope, $scope,pagedataLoading,settings, $http, $location,
+			 $stateParams,$log,dataHelper,getUserInfo,ejpAlert,requestResults) {
+	
+	         Metronic.initAjax();
+	
+	         $scope.userInfo = getUserInfo.userInfo();
+	                                            				
+	         $scope.vo = {};
+	         $scope.permit = {};
+	         $scope.permit.permitTitle = requestResults.permitTitle;
+	         $scope.permit.permitContext = requestResults.permitContext;
+	         $scope.permit.submitUserName = requestResults.submitUserName;
+	         $scope.permit.submitTime = requestResults.submitTime;
+	         $scope.vo.permitId = requestResults.permitId;
+	         $scope.vo.handleUser = $scope.userInfo.userId;
+	                                             				
+	         $scope.approve = function() {
+	        	 $http.post('permit/approve', $scope.vo).success(function(data){
+	                  if(data.result==='success'){
+	                    ejpAlert.show("审核已通过!");
+	                        $modalInstance.close();
+	                }
+	              });	                                                				
+	            };
+	    	    $scope.disApprove = function() {
+				    $http.post('permit/disApprove', $scope.vo).success(function(data){
+                        if(data.result==='success'){
+                            ejpAlert.show("审核已拒绝!");
+                            $modalInstance.close();
+                      }
+                });	                                                				
+                                                				
+	    };
+	      $scope.cancel = function() {
+	          $modalInstance.dismiss('cancel');
+	      };
+    }]);
 
-MetronicApp.controller("editUserController",
-		['$rootScope','$scope','$http','$location','$modal','pagedataLoading','ejpAlert','$stateParams',
-		function($rootScope, $scope, $http, $location, $modal, pagedataLoading,ejpAlert,$stateParams) {
-			$scope.$on('$viewContentLoaded', function() {
-				Metronic.initAjax();
-
-				// set default layout mode
-				$rootScope.settings.layout.pageBodySolid = false;
-				$rootScope.settings.layout.pageSidebarClosed = false;
-
-			   $scope.id =	$stateParams.id;
-
-               $scope.vo = {} ;
-
-				//获得用户详情
-				$scope.userDetail = function(){
-					// 正在加载
-					Metronic.blockUI({
-						message:'加载中，请稍后...'
-					});
-					$http.post("user/queryUserById/"+$stateParams.id).success(function(data){
-						if(data.result==="success"){
-							$scope.vo = data.data ;
-						}
-						// 取消加载
-						Metronic.unblockUI();
-					})
-				}
-				$scope.userDetail() ;
-				
-				$scope.getPostList = function(){
-    				$http.post("common/findPostList").success(function(data){
-    					if(data.result === "success"){
-    						$scope.userPostList = data.list;
-    					}
-    				})
-    			}
-    			$scope.getPostList();
-				
-				//跟新用户信息
-				$scope.userSubmit = function(){
-					$http.post("user/updateUser", $scope.vo).success(function (data) {
-                        if (data.result === "success") {
-                            ejpAlert.show("修改成功！");
-                            $location.path("#/user_list.html");
-                        }
-                    })
-				}
-				
-			});
-	}]);

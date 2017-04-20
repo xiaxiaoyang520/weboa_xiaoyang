@@ -31,7 +31,7 @@ public class AttendService{
 	}
 
 	public void addRemark(Attend attend) {
-		AssertUtils.notNull(attend.getAttendUser(), "用户id为空");
+		AssertUtils.notNull(attend.getAttendId(), "考勤id为空");
 		AssertUtils.notNull(attend.getAttendRemark(), "添加备注信息为空");
 		attendBL.addRemark(attend);
 	}

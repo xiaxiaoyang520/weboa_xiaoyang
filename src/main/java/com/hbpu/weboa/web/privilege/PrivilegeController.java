@@ -101,15 +101,15 @@ public class PrivilegeController {
         attendVO.setTitle("考勤管理");
         attendVO.setUrl("#/attend_list.html");
         
-        PrivilegeIndexVO privilegeVO = new PrivilegeIndexVO();
-        privilegeVO.setIcon("fa fa-ioxhost");
-        privilegeVO.setPrivilegeCode("auth");
-        privilegeVO.setPrivilegeName("授权管理");
-        privilegeVO.setPrivilegeType("Menu");
-        privilegeVO.setSequence(null);
-        privilegeVO.setSonIndex(null);
-        privilegeVO.setTitle("授权管理");
-        privilegeVO.setUrl("#/auth_list.html");
+        PrivilegeIndexVO authVO = new PrivilegeIndexVO();
+        authVO.setIcon("fa fa-ioxhost");
+        authVO.setPrivilegeCode("auth");
+        authVO.setPrivilegeName("授权管理");
+        authVO.setPrivilegeType("Menu");
+        authVO.setSequence(null);
+        authVO.setSonIndex(null);
+        authVO.setTitle("授权管理");
+        authVO.setUrl("#/auth_list.html");
         
         PrivilegeIndexVO noticeVO = new PrivilegeIndexVO();
         noticeVO.setIcon("fa fa-bullhorn");
@@ -128,7 +128,7 @@ public class PrivilegeController {
         dataList.add(attendVO);
         dataList.add(permitVO);
         dataList.add(speechVO);
-        dataList.add(privilegeVO);
+        dataList.add(authVO);
         dataList.add(noticeVO);
         poList.setDataList(dataList);
 
