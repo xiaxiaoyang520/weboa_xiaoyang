@@ -56,6 +56,7 @@ MetronicApp.controller("authController",
 				$http.post("user/grantDept/"+userId).success(function(data){
 					if(data.result==="success"){
 						ejpAlert.show("权限设置成功");
+						$scope.getUserList();
 					}
 				})
 			}
@@ -64,6 +65,7 @@ MetronicApp.controller("authController",
 				$http.post("user/grantEmploy/"+userId).success(function(data){
 					if(data.result==="success"){
 						ejpAlert.show("权限设置成功");
+						$scope.getUserList();
 					}
 				})
 			}
@@ -72,6 +74,7 @@ MetronicApp.controller("authController",
 				$http.post("user/grantManager/"+userId).success(function(data){
 					if(data.result==="success"){
 						ejpAlert.show("权限设置成功");
+						$scope.getUserList();
 					}
 				})
 			}

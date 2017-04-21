@@ -52,6 +52,8 @@ public class UserService{
 	}
 
 	public void updateUser(User user) {
+		AssertUtils.notNull(user, "修改用户模型不能为空");
+		AssertUtils.notNull(user.getUserId(), "用户id不能为空");
 		userBL.updateUser(user);
 	}
 

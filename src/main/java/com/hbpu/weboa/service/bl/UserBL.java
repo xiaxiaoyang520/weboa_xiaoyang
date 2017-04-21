@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import com.hbpu.weboa.service.dao.UserPOMapper;
 import com.hbpu.weboa.service.domain.ChangPwd;
@@ -115,11 +116,11 @@ public class UserBL {
 	 */
 	public void updateUser(User user) {
 		String idCardNO = user.getIdCardNO();
-		if (idCardNO != null) {
+		if (!StringUtils.isEmpty(idCardNO)) {
 			AssertUtils.isTrue(ValidateHelp.checkIDCard(idCardNO), "身份证号不合法");
 		}
 		String userEmail = user.getUserEmail();
-		if (userEmail != null) {
+		if (!StringUtils.isEmpty(idCardNO)) {
 			AssertUtils.isTrue(ValidateHelp.checkEmail(userEmail), "邮箱输入不合法");
 		}
 		userPOMapper.updateUser(user);

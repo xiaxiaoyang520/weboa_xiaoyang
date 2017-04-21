@@ -95,14 +95,16 @@ public class UserController {
 	
 	@RequestMapping(value="/templates/user/grantDept/{userId}",method=RequestMethod.POST)
 	public BaseResult grantDept(@PathVariable("userId") Integer userId){
-		User user = userService.getUserById(userId);
-		Post post = postService.queryPostById(user.getPostId());
+		User userInfo = userService.getUserById(userId);
+		Post post = postService.queryPostById(userInfo.getPostId());
 		Integer deptId = post.getDeptId();
 		Dept dept = new Dept();
 		dept.setDeptHeader(userId);
 		dept.setDeptId(deptId);
 		deptService.updateDept(dept);
+		User user = new User();
 		user.setUserPower(2);
+		user.setUserId(userId);
 		userService.updateUser(user);
 		return BaseResult.getSuccessResult();
 	}
@@ -117,6 +119,7 @@ public class UserController {
 		dept.setDeptId(deptId);
 		deptService.updateDept(dept);
 		user.setUserPower(1);
+		user.setUserId(userId);
 		userService.updateUser(user);
 		return BaseResult.getSuccessResult();
 	}
