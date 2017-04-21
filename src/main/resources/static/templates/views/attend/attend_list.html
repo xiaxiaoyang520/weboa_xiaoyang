@@ -54,7 +54,7 @@
 									ng-click="resetClick()">
 									<i class="fa fa-eraser"></i> 清空
 								</button>
-								<button class="btn primary" type="submit" >
+								<button class="btn primary" type="submit" ng-show="userInfo.userPower>2" >
 										<i class="icon-share-alt"></i> 导出
 									</button>
 							</div>

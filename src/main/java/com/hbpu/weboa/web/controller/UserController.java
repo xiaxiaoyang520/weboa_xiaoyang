@@ -66,9 +66,12 @@ public class UserController {
 	@RequestMapping(value="/templates/user/queryUserById/{userId}",method=RequestMethod.POST)
 	public BaseResult queryUserById(@PathVariable("userId") Integer userId){
 		User user = userService.getUserById(userId);
-		Post post = postService.queryPostById(user.getPostId());
 		UserRO ro = UserConverter.convertToRO(user);
-		ro.setPostName(post.getPostName());
+		Post post = null;
+		if (user.getPostId() != null) {
+			post = postService.queryPostById(user.getPostId());
+			ro.setPostName(post.getPostName());
+		}
 		return new ROResult<UserRO>(ro);
 	}
 	

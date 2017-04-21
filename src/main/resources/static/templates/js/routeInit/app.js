@@ -179,6 +179,9 @@ MetronicApp.controller('HeaderController', [ '$scope', '$http', '$log','$locatio
 					if(userInfo.userPower==3){
 						$scope.vo.userRole='管理员';
 					}
+					if(userInfo.userPower==4){
+						$scope.vo.userRole='超级管理员';
+					}
 				$scope.userInfo={trueName:userInfo.userName}
 				$scope.open = function() {
 					modalService.openModal({
