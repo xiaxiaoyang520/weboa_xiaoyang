@@ -39,7 +39,9 @@ public class UserConverter {
 	public static List<UserVO> convertToVOList(List<User> list){
 		List<UserVO> vos = new ArrayList<UserVO>();
 		for (User user : list) {
-			vos.add(convertToVO(user));
+			if (user.getUserPower() != 4) {
+				vos.add(convertToVO(user));
+			}
 		}
 		return vos;
 	}

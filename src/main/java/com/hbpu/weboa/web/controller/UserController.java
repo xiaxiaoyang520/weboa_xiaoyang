@@ -14,8 +14,10 @@ import com.hbpu.weboa.api.user.converter.UserConverter;
 import com.hbpu.weboa.api.user.model.UserRO;
 import com.hbpu.weboa.api.user.model.UserVO;
 import com.hbpu.weboa.service.domain.ChangPwd;
+import com.hbpu.weboa.service.domain.Dept;
 import com.hbpu.weboa.service.domain.Post;
 import com.hbpu.weboa.service.domain.User;
+import com.hbpu.weboa.service.service.DeptService;
 import com.hbpu.weboa.service.service.PostService;
 import com.hbpu.weboa.service.service.UserService;
 import com.hbpu.weboa.service.utils.AssertUtils;
@@ -38,6 +40,9 @@ public class UserController {
 	
 	@Autowired
 	private PostService postService;
+	
+	@Autowired
+	private DeptService deptService;
 	
 	@RequestMapping(value="/templates/user/findUserList/{currentPage}",method=RequestMethod.POST)
 	public BaseResult findUserList(@PathVariable("currentPage") Integer currentPage,
@@ -84,6 +89,43 @@ public class UserController {
 		User user = new User();
 		user.setUserPassword(newPwd);
 		user.setUserId(userId);
+		userService.updateUser(user);
+		return BaseResult.getSuccessResult();
+	}
+	
+	@RequestMapping(value="/templates/user/grantDept/{userId}",method=RequestMethod.POST)
+	public BaseResult grantDept(@PathVariable("userId") Integer userId){
+		User user = userService.getUserById(userId);
+		Post post = postService.queryPostById(user.getPostId());
+		Integer deptId = post.getDeptId();
+		Dept dept = new Dept();
+		dept.setDeptHeader(userId);
+		dept.setDeptId(deptId);
+		deptService.updateDept(dept);
+		user.setUserPower(2);
+		userService.updateUser(user);
+		return BaseResult.getSuccessResult();
+	}
+	
+	@RequestMapping(value="/templates/user/grantEmploy/{userId}",method=RequestMethod.POST)
+	public BaseResult grantEmploy(@PathVariable("userId") Integer userId){
+		User user = userService.getUserById(userId);
+		Post post = postService.queryPostById(user.getPostId());
+		Integer deptId = post.getDeptId();
+		Dept dept = new Dept();
+		dept.setDeptHeader(-1);
+		dept.setDeptId(deptId);
+		deptService.updateDept(dept);
+		user.setUserPower(1);
+		userService.updateUser(user);
+		return BaseResult.getSuccessResult();
+	}
+	
+	@RequestMapping(value="/templates/user/grantManager/{userId}",method=RequestMethod.POST)
+	public BaseResult grantManager(@PathVariable("userId") Integer userId){
+		User user = new User();
+		user.setUserId(userId);
+		user.setUserPower(3);
 		userService.updateUser(user);
 		return BaseResult.getSuccessResult();
 	}

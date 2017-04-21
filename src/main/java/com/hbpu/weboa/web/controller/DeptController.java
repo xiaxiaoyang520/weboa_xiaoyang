@@ -52,9 +52,12 @@ public class DeptController {
 	@RequestMapping(value="/templates/dept/queryDeptById/{deptId}",method=RequestMethod.POST)
 	public BaseResult queryDeptById(@PathVariable("deptId") Integer deptId){
 		Dept dept = deptService.queryDeptById(deptId);
-		User user = userService.getUserById(dept.getDeptHeader());
+		Integer deptHeader = dept.getDeptHeader();
 		DeptVO vo = DeptConverter.convertToVO(dept);
-		vo.setDeptHeaderName(user.getUserName());
+		if (deptHeader !=-1) {
+			User user = userService.getUserById(deptHeader);
+			vo.setDeptHeaderName(user.getUserName());
+		}
 		return new ROResult<DeptVO>(vo);
 	}
 	

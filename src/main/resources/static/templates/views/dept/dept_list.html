@@ -52,7 +52,7 @@
 					</div>
 				</form>
 			</div>
-			<div class="table-toolbar">
+			<div class="table-toolbar" ng-show="userInfo.userPower>2">
 				<div class="btn-group">
 					<a href="#/dept_add.html" class="btn blue"> <i
 						class="fa fa-plus"></i> 新增部门
@@ -83,7 +83,7 @@
 							<td><a ng-href="#/dept_detail/{{item.deptId}}"
 								class="btn btn-xs default btn-editable"> <i
 									class="fa fa-file-text-o"></i> 详情
-							</a> <a href="#/dept_edit/{{item.deptId}}"
+							</a> <a href="#/dept_edit/{{item.deptId}}" ng-show="userInfo.userPower>2"
 								class="btn btn-xs default btn-editable"
 								> <i class="fa fa-edit"></i>
 									编辑

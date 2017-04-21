@@ -45,7 +45,7 @@
 							<div class="row">
 								<div class="col-md-offset-3 col-md-9">
 								<a ng-href="#/dept_edit/{{vo.deptId}}"
-							class="btn btn-primary"><i
+							class="btn btn-primary" ng-show="userInfo.userPower>2"><i
 							class="fa fa-edit"></i> 编辑</a> 
 									<a href="#/dept_list.html" class="btn default"><i
 										class="fa fa-chevron-circle-left"></i> 返回</a>

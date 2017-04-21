@@ -1,6 +1,3 @@
-/**   
- * Copyright © 2016 北京易酒批电子商务有限公司. All rights reserved.
- */
 package com.hbpu.weboa;
 
 import org.springframework.boot.SpringApplication;
@@ -12,23 +9,18 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 /**  
- * 统计分析web服务启动
- * @author ganmingzhu
- * @date 2016年12月21日 下午2:19:19  
+ * 系统启动类
+ * @author xiayang
+ * @date 2017年4月21日 下午5:47:35  
  */
 @SpringBootApplication
 @ComponentScan(basePackages = "com.hbpu.weboa")
 @EnableCaching
 @EnableScheduling
-//@EnableAutoConfiguration
-public class StatsWebApp extends SpringBootServletInitializer {
+public class WebApp extends SpringBootServletInitializer {
 	
-	/** 
-	 * @param args
-	 * @return void
-	 */
     public static void main(String[] args) {
-        SpringApplication.run(StatsWebApp.class, args);
+        SpringApplication.run(WebApp.class, args);
     }
 
     @Override

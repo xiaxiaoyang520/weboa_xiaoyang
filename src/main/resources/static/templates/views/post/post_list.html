@@ -52,7 +52,7 @@
 					</div>
 				</form>
 			</div>
-			<div class="table-toolbar">
+			<div class="table-toolbar" ng-show="userInfo.userPower>2">
 				<div class="btn-group">
 					<a href="#/post_add.html" class="btn blue"> <i
 						class="fa fa-plus"></i> 新增职位
@@ -84,7 +84,7 @@
 							<td><a ng-href="#/post_detail/{{item.postId}}"
 								class="btn btn-xs default btn-editable"> <i
 									class="fa fa-file-text-o"></i> 详情
-							</a> <a href="#/post_edit/{{item.postId}}"
+							</a> <a href="#/post_edit/{{item.postId}}" ng-show="userInfo.userPower>2"
 								class="btn btn-xs default btn-editable"
 								> <i class="fa fa-edit"></i>
 									编辑

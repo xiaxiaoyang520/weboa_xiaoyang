@@ -94,7 +94,7 @@
 							<td><span class="label label-sm label-primary" ng-show="item.attendState == 1">正常</span><span
 								class="label label-sm label-warning" ng-show="item.attendState == 2">迟到</span>
 								<span class="label label-sm label-danger" ng-show="item.attendState == 3">早退</span></td>
-							<td><a ng-click="addRemark(item.attendId)"
+							<td><a ng-click="addRemark(item.attendId)" ng-show="item.attendUser==userInfo.userId||userInfo.userPower>2"
 								class="btn btn-xs default btn-editable"
 								> <i class="fa fa-plus"></i>
 									添加备注

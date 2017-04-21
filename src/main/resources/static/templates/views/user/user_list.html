@@ -97,7 +97,7 @@
 					</div>
 				</form>
 			</div>
-			<div class="table-toolbar">
+			<div class="table-toolbar" ng-show="userInfo.userPower>2">
 				<div class="btn-group">
 					<a href="#/user_add.html" class="btn blue"> <i
 						class="fa fa-plus"></i> 新增用户
@@ -143,18 +143,18 @@
 							<td><a ng-href="#/user_detail/{{item.userId}}"
 								class="btn btn-xs default btn-editable"> <i
 									class="fa fa-file-text-o"></i> 详情
-							</a> <a href="#/user_edit/{{item.userId}}"
+							</a> <a href="#/user_edit/{{item.userId}}" ng-show="userInfo.userPower>2"
 								class="btn btn-xs default btn-editable"
 								> <i class="fa fa-edit"></i>
 									编辑
-							</a><span ng-show="userInfo.userPower==3"><a ng-show="item.state==1"
+							</a><span ng-show="userInfo.userPower>2"><a ng-show="item.state==1"
 								class="btn btn-xs default btn-editable" ng-click="disabled(item.userId)"> <i
 									class="fa fa-lock"></i> 停用
 							</a><a ng-show="item.state==2" class="btn btn-xs default btn-editable" 
 							ng-click="enabled(item.userId)"> <i
 									class="fa fa-unlock"></i> 启用
 							</a></span>
-							<span ng-show="userInfo.userPower==3"><a
+							<span ng-show="userInfo.userPower>2"><a
 								class="btn btn-xs default btn-editable" ng-click="resetPwd(item.userId)"> <i
 									class="fa fa-key"></i> 重置密码
 							</a></span>

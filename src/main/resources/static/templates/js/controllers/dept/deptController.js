@@ -2,8 +2,8 @@
  *部门信息列表
  */
 MetronicApp.controller("deptController",
-	['$rootScope','$scope','$http','$location','$modal','pagedataLoading','ejpAlert',
-	function($rootScope, $scope, $http, $location, $modal, pagedataLoading,ejpAlert) {
+	['$rootScope','$scope','$http','$location','$modal','pagedataLoading','ejpAlert','getUserInfo',
+	function($rootScope, $scope, $http, $location, $modal, pagedataLoading,ejpAlert,getUserInfo) {
 		$scope.$on('$viewContentLoaded', function() {
 			Metronic.initAjax();
 
@@ -16,6 +16,8 @@ MetronicApp.controller("deptController",
 
 			var vm = $scope.vm = {};
 			vm.items = [] ;
+			
+			$scope.userInfo = getUserInfo.userInfo();
 			
 			$scope.getDeptList = function(){
 				//显示加载中……
@@ -74,8 +76,8 @@ MetronicApp.controller("addDeptController",
 
 //部门详细信息
 MetronicApp.controller("detailDeptController",
-		['$rootScope','$scope','$http','$location','$modal','pagedataLoading','ejpAlert','$stateParams',
-		function($rootScope, $scope, $http, $location, $modal, pagedataLoading,ejpAlert,$stateParams) {
+		['$rootScope','$scope','$http','$location','$modal','pagedataLoading','ejpAlert','$stateParams','getUserInfo',
+		function($rootScope, $scope, $http, $location, $modal, pagedataLoading,ejpAlert,$stateParams,getUserInfo) {
 			$scope.$on('$viewContentLoaded', function() {
 				Metronic.initAjax();
 
@@ -84,6 +86,8 @@ MetronicApp.controller("detailDeptController",
 				$rootScope.settings.layout.pageSidebarClosed = false;
 
 			   $scope.id =	$stateParams.id;
+			   
+			   $scope.userInfo = getUserInfo.userInfo();
 
 				//获得部门详情
 				$scope.deptDetail = function(){

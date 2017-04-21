@@ -2,8 +2,8 @@
  *职位信息列表
  */
 MetronicApp.controller("postController",
-	['$rootScope','$scope','$http','$location','$modal','pagedataLoading','ejpAlert',
-	function($rootScope, $scope, $http, $location, $modal, pagedataLoading,ejpAlert) {
+	['$rootScope','$scope','$http','$location','$modal','pagedataLoading','ejpAlert','getUserInfo',
+	function($rootScope, $scope, $http, $location, $modal, pagedataLoading,ejpAlert,getUserInfo) {
 		$scope.$on('$viewContentLoaded', function() {
 			Metronic.initAjax();
 
@@ -16,6 +16,8 @@ MetronicApp.controller("postController",
 
 			var vm = $scope.vm = {};
 			vm.items = [] ;
+			
+			$scope.userInfo = getUserInfo.userInfo();
 			
 			$scope.getPostList = function(){
 				//显示加载中……
@@ -79,8 +81,8 @@ MetronicApp.controller("addPostController",
 
 //用户详细信息
 MetronicApp.controller("detailPostController",
-		['$rootScope','$scope','$http','$location','$modal','pagedataLoading','ejpAlert','$stateParams',
-		function($rootScope, $scope, $http, $location, $modal, pagedataLoading,ejpAlert,$stateParams) {
+		['$rootScope','$scope','$http','$location','$modal','pagedataLoading','ejpAlert','$stateParams','getUserInfo',
+		function($rootScope, $scope, $http, $location, $modal, pagedataLoading,ejpAlert,$stateParams,getUserInfo) {
 			$scope.$on('$viewContentLoaded', function() {
 				Metronic.initAjax();
 
@@ -89,6 +91,8 @@ MetronicApp.controller("detailPostController",
 				$rootScope.settings.layout.pageSidebarClosed = false;
 
 			   $scope.id =	$stateParams.id;
+			   
+			   $scope.userInfo = getUserInfo.userInfo();
 
 				//获得职位详情
 				$scope.postDetail = function(){

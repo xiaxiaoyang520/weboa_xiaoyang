@@ -17,9 +17,7 @@ MetronicApp.controller("userController",
 			
 			$scope.stateList = [{code:1,name:'启用'},{code:2,name:'停用'}];
 			
-			$scope.userPowerList = [{code:1,name:'员工'},
-			                    {code:2,name:'部门主管'},
-			                    {code:3,name:'管理员'}];
+			$scope.userPowerList = [{code:1,name:'员工'},{code:2,name:'部门主管'},{code:3,name:'管理员'}];
 
 			var vm = $scope.vm = {};
 			vm.pages = {
@@ -174,8 +172,8 @@ MetronicApp.controller("addUserController",
 
 //用户详细信息
 MetronicApp.controller("detailUserController",
-		['$rootScope','$scope','$http','$location','$modal','pagedataLoading','ejpAlert','$stateParams',
-		function($rootScope, $scope, $http, $location, $modal, pagedataLoading,ejpAlert,$stateParams) {
+		['$rootScope','$scope','$http','$location','$modal','pagedataLoading','ejpAlert','$stateParams','getUserInfo',
+		function($rootScope, $scope, $http, $location, $modal, pagedataLoading,ejpAlert,$stateParams,getUserInfo) {
 			$scope.$on('$viewContentLoaded', function() {
 				Metronic.initAjax();
 
@@ -185,8 +183,7 @@ MetronicApp.controller("detailUserController",
 
 			   $scope.id =	$stateParams.id;
 
-               $scope.tastVO = {} ;
-
+			   $scope.userInfo = getUserInfo.userInfo();
 				//获得用户详情
 				$scope.userDetail = function(){
 					// 正在加载
