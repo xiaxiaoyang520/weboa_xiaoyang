@@ -13,10 +13,10 @@ var Login = function() {
                 }
             },
             messages: {
-                username: {
+                userTel: {
                     required: "请输入手机号."
                 },
-                password: {
+                userPassword: {
                     required: "请输入密码."
                 }
             },

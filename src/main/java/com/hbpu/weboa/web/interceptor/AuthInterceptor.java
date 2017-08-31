@@ -52,9 +52,9 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
             return true;
         }
         final HttpSession session = request.getSession();
-        logger.error("userInfo->"+ session.getAttribute("user"));
-        logger.error("url->"+request.getRequestURL()+"---------"+"uri->"+request.getRequestURI());
-        if (session.getAttribute("user") != null||request.getRequestURI().contains("Login")) {
+        logger.error("userInfo:"+ session.getAttribute("user"));
+        logger.error("url:"+request.getRequestURL()+"========="+"uri:"+request.getRequestURI());
+        if (session.getAttribute("user") != null||request.getRequestURI().contains("Login")||request.getRequestURI().contains("code")) {
         	return true;
         } else {
         	logger.error("未登录！");
