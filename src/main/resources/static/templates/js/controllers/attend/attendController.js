@@ -54,7 +54,7 @@ MetronicApp.controller("attendController",
 				$scope.vo = {};
 			};
 			
-			$scope.addRemark=function(attendId){
+			$scope.addRemark=function(attendId,attendRemark){
 				var modalInstance = $modal.open({
 					templateUrl : 'views/modals/addAttendRemark.html',
 					controller : 'ModalAddAttendRemarkCtrl',
@@ -63,6 +63,7 @@ MetronicApp.controller("attendController",
 						requestResults : function() {
 							return {
 								attendId:attendId,
+								attendRemark:attendRemark
 							}
 						}
 					}
@@ -84,6 +85,7 @@ MetronicApp.controller("attendController",
                             	
            $scope.vo = {};
            $scope.vo.attendId = requestResults.attendId;
+           $scope.vo.attendRemark = requestResults.attendRemark;
             $scope.addRemark = function() {
                   $http.post('attend/addAttendRemark', $scope.vo).success(function(data){
                     if(data.result==='success'){
