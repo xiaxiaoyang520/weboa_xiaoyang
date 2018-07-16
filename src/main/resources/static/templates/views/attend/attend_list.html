@@ -21,7 +21,7 @@
 								<div class="form-group">
 									<label class="col-md-3 control-label">用户编号：</label>
 									<div class="col-md-9">
-										<input type="text" ng-model="vo.userId" class="form-control">
+										<input type="text" ng-model="vo.attendUser" class="form-control">
 									</div>
 								</div>
 							</div>
@@ -32,7 +32,7 @@
 										<div class="input-group date-picker input-daterange">
 											<input name="attendBeginDate"
 											class="form-control ng-pristine ng-untouched ng-valid"
-											type="text" data-ng-model="vo.attendBeginDate"> <span
+											type="text" data-ng-model="vo.attendStartDate"> <span
 											class="input-group-addon">到</span> <input name="attendEndDate"
 											class="form-control ng-pristine ng-untouched ng-valid"
 											type="text" data-ng-model="vo.attendEndDate">
@@ -94,7 +94,7 @@
 							<td><span class="label label-sm label-primary" ng-show="item.attendState == 1">正常</span><span
 								class="label label-sm label-warning" ng-show="item.attendState == 2">迟到</span>
 								<span class="label label-sm label-danger" ng-show="item.attendState == 3">早退</span></td>
-							<td><a ng-click="addRemark(item.attendId)" ng-show="item.attendUser==userInfo.userId||userInfo.userPower>2"
+							<td><a ng-click="addRemark(item.attendId,item.attendRemark)" ng-show="item.attendUser==userInfo.userId||userInfo.userPower>2"
 								class="btn btn-xs default btn-editable"
 								> <i class="fa fa-plus"></i>
 									添加备注
